@@ -50,7 +50,7 @@ filetype plugin indent on "ファイルタイプ別のプラグインのロー�
 
 "Key Binding---------
 nnoremap <silent><esc><esc> :nohlsearch<CR>
-inoremap <silent><esc><esc> :set iminsert=0<CR> 
+"inoremap <silent><esc><esc> :set iminsert=0<CR> 
 imap <C-j> <esc>
 "--------------------
 
@@ -73,3 +73,68 @@ hi DiffAdd    ctermfg=white ctermbg=196
 hi DiffChange ctermfg=white ctermbg=240
 hi DiffDelete ctermfg=white ctermbg=240
 "----------
+
+""watchdogs----------
+" watchdogs#setup()を参照できるように、パスに追加する
+set runtimepath+=~/.vim/pack/LAKuEN/start/vim-watchdogs/
+let g:quickrun_config = {
+\   "_": {
+\       "runner": "vimproc",
+\       "runner/vimproc/updatetime": 10,
+\   },
+\   "watchdogs_checker/_": {
+\       "outputter/quickfix/open_cmd": "",
+\       "hook/qfstatusline_update/enable_exit": 1,
+\       "hook/qfstatusline_update/priority_exit": 4,
+\   },
+\   "python/watchdogs_checker": {
+\       "type": "watchdogs_checker/pyflakes",
+\   },
+\   "watchdogs_checker/pyflakes": {
+\       "command": "pyflakes",
+\   },
+\}
+" syntax check
+" 書き込み後
+let g:watchdogs_check_BufWritePost_enable = 1
+" 一定時間キー入力がなかった時: バッファへの書き込み後、1度だけ実行される
+let g:watchdogs_check_CursorHold_enable = 1
+
+" watchdogs.vim の設定を追加
+call watchdogs#setup(g:quickrun_config)
+
+" テキスト変更時にチェックが走るように設定
+" 対象ファイルの拡張子を指定する
+augroup my_watchdogs
+  autocmd!
+  autocmd InsertLeave,BufWritePost,TextChanged *.py WatchdogsRun
+  autocmd BufRead,BufNewFile *.py WatchdogsRun
+augroup END
+"----------
+
+"lightline----------
+" 下部の表示領域のサイズの調整？
+set laststatus=2
+set runtimepath+=~/.vim/pack/LAKuEN/start/lightline.vim/
+" :WatchdogsRun後にlightline.vimを更新
+let g:Qfstatusline#UpdateCmd = function('lightline#update')
+
+" lightline.vimの設定
+let g:lightline = {
+\   'mode_map': {'c': 'NORMAL'},
+\   'active': {
+\     'right': [
+\       [ 'syntaxcheck' ],
+\     ]
+\   },
+\   'component_expand': {
+\     'syntaxcheck': 'qfstatusline#Update',
+\   },
+\   'component_type': {
+\     'syntaxcheck': 'error',
+\   },
+\}
+let g:lightline = {
+\ 'colorscheme': 'powerline',
+\}
+"----------"
