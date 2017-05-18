@@ -360,6 +360,8 @@
 	<true/>
 	<key>DisableFullscreenTransparency</key>
 	<false/>
+	<key>HideTab</key>
+	<false/>
 	<key>LoadPrefsFromCustomFolder</key>
 	<true/>
 	<key>NSNavLastRootDirectory</key>
@@ -405,7 +407,7 @@
 		<integer>1</integer>
 	</dict>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>532 547 796 473 0 0 1680 1050 </string>
+	<string>281 389 796 473 0 0 1680 1050 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
 	<string>4 21 1672 1007 0 0 1680 1028 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
