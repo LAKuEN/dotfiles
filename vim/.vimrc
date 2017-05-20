@@ -80,7 +80,7 @@ set runtimepath+=~/.vim/pack/LAKuEN/start/vim-watchdogs/
 let g:quickrun_config = {
 \   "_": {
 \       "runner": "vimproc",
-\       "runner/vimproc/updatetime": 10,
+\       "runner/vimproc/updatetime": 40,
 \   },
 \   "watchdogs_checker/_": {
 \       "outputter/quickfix/open_cmd": "",
@@ -88,12 +88,16 @@ let g:quickrun_config = {
 \       "hook/qfstatusline_update/priority_exit": 4,
 \   },
 \   "python/watchdogs_checker": {
-\       "type": "watchdogs_checker/pyflakes",
+\       "type": "watchdogs_checker/flake8",
 \   },
-\   "watchdogs_checker/pyflakes": {
-\       "command": "pyflakes",
+\   "watchdogs_checker/flake8": {
+\       "command": "flake8",
 \   },
 \}
+"\       "runner/vimproc/updatetime": 10,
+"\   "watchdogs_checker/pyflakes": {
+"\       "command": "pyflakes",
+"\   },
 " syntax check
 " 書き込み後
 let g:watchdogs_check_BufWritePost_enable = 1
@@ -107,8 +111,10 @@ call watchdogs#setup(g:quickrun_config)
 " 対象ファイルの拡張子を指定する
 augroup my_watchdogs
   autocmd!
-  autocmd InsertLeave,BufWritePost,TextChanged *.py WatchdogsRun
-  autocmd BufRead,BufNewFile *.py WatchdogsRun
+  "autocmd InsertLeave,BufWritePost,TextChanged *.py WatchdogsRun
+  "autocmd BufRead,BufNewFile *.py WatchdogsRun
+  autocmd TextChanged *.py WatchdogsRun
+  autocmd BufRead *.py WatchdogsRun
 augroup END
 "----------
 
