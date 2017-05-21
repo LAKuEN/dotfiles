@@ -1,8 +1,9 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =6
+let g:netrw_dirhist_cnt =7
 let g:netrw_dirhist_1='/Users/Yusuke/git/image_recognition/book/image_recognition/03_pages'
 let g:netrw_dirhist_2='/Users/Yusuke/git/image_recognition/book/image_recognition'
 let g:netrw_dirhist_3='/Users/Yusuke'
 let g:netrw_dirhist_4='/Users/Yusuke/git/memo/work/work_log'
 let g:netrw_dirhist_5='/Users/Yusuke/git/tensorflow'
 let g:netrw_dirhist_6='/Users/Yusuke/git/tensorflow/memo'
+let g:netrw_dirhist_7='/Users/Yusuke/git/playground/入門Python3/src'

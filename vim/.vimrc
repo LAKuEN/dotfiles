@@ -1,7 +1,6 @@
 if &compatible
   set nocompatible               " Be iMproved
-endif
-
+endif 
 "Visual----------
 colorscheme greenvision
 syntax on
@@ -80,7 +79,7 @@ set runtimepath+=~/.vim/pack/LAKuEN/start/vim-watchdogs/
 let g:quickrun_config = {
 \   "_": {
 \       "runner": "vimproc",
-\       "runner/vimproc/updatetime": 40,
+\       "runner/vimproc/updatetime": 10,
 \   },
 \   "watchdogs_checker/_": {
 \       "outputter/quickfix/open_cmd": "",
@@ -111,10 +110,18 @@ call watchdogs#setup(g:quickrun_config)
 " 対象ファイルの拡張子を指定する
 augroup my_watchdogs
   autocmd!
-  "autocmd InsertLeave,BufWritePost,TextChanged *.py WatchdogsRun
-  "autocmd BufRead,BufNewFile *.py WatchdogsRun
-  autocmd TextChanged *.py WatchdogsRun
-  autocmd BufRead *.py WatchdogsRun
+  autocmd BufWritePost,TextChanged *.py WatchdogsRun
+  autocmd BufRead,BufNewFile *.py WatchdogsRun
+  autocmd BufRead,BufNewFile *.py
+      \   xnoremap <buffer><silent> x x:WatchdogsRun<CR><left>
+      \ | xnoremap <buffer><silent> d d:WatchdogsRun<CR><left>
+      \ | xnoremap <buffer><silent> D D:WatchdogsRun<CR><left>
+      \ | nnoremap <buffer><silent> D D:WatchdogsRun<CR><left>
+      \ | nnoremap <buffer><silent> dd dd:WatchdogsRun<CR><left>
+      \ | nnoremap <buffer><silent> dw dw:WatchdogsRun<CR><left>
+      \ | nnoremap <buffer><silent> u u:WatchdogsRun<CR><left>
+      \ | nnoremap <buffer><silent> <C-R> <C-R>:WatchdogsRun<CR><left>
+      \ | inoremap <buffer><silent> <Esc> <Esc>:WatchdogsRun<CR><left>
 augroup END
 "----------
 
@@ -130,7 +137,7 @@ let g:lightline = {
 \   'mode_map': {'c': 'NORMAL'},
 \   'active': {
 \     'right': [
-\       [ 'syntaxcheck' ],
+\       ['syntaxcheck'],
 \     ]
 \   },
 \   'component_expand': {
