@@ -112,16 +112,16 @@ augroup my_watchdogs
   autocmd!
   autocmd BufWritePost,TextChanged *.py WatchdogsRun
   autocmd BufRead,BufNewFile *.py WatchdogsRun
-  autocmd BufRead,BufNewFile *.py
-      \   xnoremap <buffer><silent> x x:WatchdogsRun<CR><left>
-      \ | xnoremap <buffer><silent> d d:WatchdogsRun<CR><left>
-      \ | xnoremap <buffer><silent> D D:WatchdogsRun<CR><left>
-      \ | nnoremap <buffer><silent> D D:WatchdogsRun<CR><left>
-      \ | nnoremap <buffer><silent> dd dd:WatchdogsRun<CR><left>
-      \ | nnoremap <buffer><silent> dw dw:WatchdogsRun<CR><left>
-      \ | nnoremap <buffer><silent> u u:WatchdogsRun<CR><left>
-      \ | nnoremap <buffer><silent> <C-R> <C-R>:WatchdogsRun<CR><left>
-      \ | inoremap <buffer><silent> <Esc> <Esc>:WatchdogsRun<CR><left>
+"  autocmd BufRead,BufNewFile *.py
+"      \   xnoremap <buffer><silent> x x:WatchdogsRun<CR><left>
+"      \ | xnoremap <buffer><silent> d d:WatchdogsRun<CR><left>
+"      \ | xnoremap <buffer><silent> D D:WatchdogsRun<CR><left>
+"      \ | nnoremap <buffer><silent> D D:WatchdogsRun<CR><left>
+"      \ | nnoremap <buffer><silent> dd dd:WatchdogsRun<CR><left>
+"      \ | nnoremap <buffer><silent> dw dw:WatchdogsRun<CR><left>
+"      \ | nnoremap <buffer><silent> u u:WatchdogsRun<CR><left>
+"      \ | nnoremap <buffer><silent> <C-R> <C-R>:WatchdogsRun<CR><left>
+"      \ | inoremap <buffer><silent> <Esc> <Esc>:WatchdogsRun<CR><left>
 augroup END
 "----------
 
