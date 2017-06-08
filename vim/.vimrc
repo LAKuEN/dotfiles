@@ -80,8 +80,9 @@ hi DiffDelete ctermfg=white ctermbg=240
 let g:ale_sign_column_always = 1
 let g:ale_sign_error = "!!"
 let g:ale_sign_warning = ">>"
-autocmd highlight clear ALEErrorSign
-autocmd highlight clear ALEWarningSign
+let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
+highlight clear ALEErrorSign
+highlight clear ALEWarningSign
 "----------
 
 
@@ -147,11 +148,16 @@ let g:Qfstatusline#UpdateCmd = function('lightline#update')
 let g:lightline = {
 \   'mode_map': {'c': 'NORMAL'},
 \   'active': {
+\     'left': [
+\       ['mode', 'paste'],
+\       ['readonly', 'filename', 'modified', 'ale'],
+\     ],
 \     'right': [
 \       ['syntaxcheck'],
 \     ]
 \   },
 \   'component_expand': {
+\     'ale': 'ALEGetStatusLine',
 \     'syntaxcheck': 'qfstatusline#Update',
 \   },
 \   'component_type': {
