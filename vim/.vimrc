@@ -8,9 +8,9 @@ set number
 set ruler "現在カーソルが表示されている行・文字番号を画面右下に表示
 set textwidth=0 "文字列の折り返しを無効
 set hlsearch "検索条件に合致した箇所をハイライト
-set list "タブ文字の表示
+set list
+"タブ文字の表示
 set listchars=tab:¦_,eol:↲,extends:»,precedes:«,nbsp:%
-
 let g:indent_guides_enable_on_vim_startup=1
 " ガイドをスタートするインデントの量
 let g:indent_guides_start_level=2
@@ -76,12 +76,20 @@ hi DiffChange ctermfg=white ctermbg=240
 hi DiffDelete ctermfg=white ctermbg=240
 "----------
 
+"ALE----------
+let g:ale_sign_column_always = 1
+let g:ale_sign_error = "!!"
+let g:ale_sign_warning = ">>"
+autocmd highlight clear ALEErrorSign
+autocmd highlight clear ALEWarningSign
+"----------
+
+
 ""watchdogs----------
 " watchdogs#setup()を参照できるように、パスに追加する
 "set runtimepath+=~/.vim/pack/LAKuEN/start/vim-watchdogs/
 "let g:quickrun_config = {
-"\   "_": {
-"\       "runner": "vimproc",
+"\   "_": { "\       "runner": "vimproc",
 "\       "runner/vimproc/updatetime": 10,
 "\   },
 "\   "watchdogs_checker/_": {
