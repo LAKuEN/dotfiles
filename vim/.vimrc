@@ -73,11 +73,16 @@ highlight clear ALEWarningSign
 " 下部の表示領域のサイズの調整？
 set laststatus=2
 set runtimepath+=~/.vim/pack/LAKuEN/start/lightline.vim/
-" :WatchdogsRun後にlightline.vimを更新
-let g:Qfstatusline#UpdateCmd = function('lightline#update')
 
 " lightline.vimの設定
 let g:lightline = {
+\   'component_expand': {
+\     'ale': 'ALEGetStatusLine',
+\   },
+\   'component_type': {
+\     'syntaxcheck': 'error',
+\   },
+\   'colorscheme': 'powerline',
 \   'mode_map': {'c': 'NORMAL'},
 \   'active': {
 \     'left': [
@@ -88,15 +93,25 @@ let g:lightline = {
 \       ['syntaxcheck'],
 \     ]
 \   },
-\   'component_expand': {
-\     'ale': 'ALEGetStatusLine',
-\     'syntaxcheck': 'qfstatusline#Update',
-\   },
-\   'component_type': {
-\     'syntaxcheck': 'error',
-\   },
 \}
 let g:lightline = {
 \ 'colorscheme': 'powerline',
 \}
+let g:lightline = {
+\   'active': {
+\     'left': [
+\       ['mode', 'paste'],
+\       ['readonly', 'filename', 'modified'],
+\       ['ale'],
+\     ]
+\   },
+\   'component_function': {
+\     'ale': 'ALEStatus'
+\   }
+\}
+
+function! ALEStatus()
+  return ALEGetStatusLine()
+endfunction
 "----------"
+
