@@ -413,9 +413,9 @@
 	<key>NSWindow Frame NSColorPanel</key>
 	<string>497 474 228 297 0 0 1920 1178 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>886 501 796 473 0 0 1920 1178 </string>
+	<string>886 529 918 498 0 0 1920 1178 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>4 12 958 1166 0 0 1920 1178 </string>
+	<string>4 12 1912 1166 0 0 1920 1178 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>247 210 490 373 0 0 1920 1178 </string>
 	<key>New Bookmarks</key>
@@ -1523,6 +1523,8 @@
 				<key>Red Component</key>
 				<real>0.023</real>
 			</dict>
+			<key>Minimum Contrast</key>
+			<real>1</real>
 			<key>Mouse Reporting</key>
 			<true/>
 			<key>Name</key>
@@ -1582,7 +1584,7 @@
 			<key>Thin Strokes</key>
 			<integer>0</integer>
 			<key>Transparency</key>
-			<real>0.46185743343195268</real>
+			<real>0.28478642751479288</real>
 			<key>Unlimited Scrollback</key>
 			<false/>
 			<key>Use Bold Font</key>
