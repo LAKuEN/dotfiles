@@ -1,5 +1,7 @@
 " Visual----------
-colorscheme greenvision
+"colorscheme greenvision
+"set background=dark
+colorscheme solarized
 syntax on
 set number
 set ruler "現在カーソルが表示されている行・文字番号を画面右下に表示
