@@ -65,6 +65,9 @@ hi DiffDelete ctermfg=white ctermbg=240
 "----------
 
 " ALE----------
+let g:ale_linters = {
+\   'python': ['flake8'],
+\}
 let g:ale_sign_column_always = 1
 let g:ale_sign_error = "!!"
 let g:ale_sign_warning = ">>"
