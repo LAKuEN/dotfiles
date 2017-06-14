@@ -16,8 +16,9 @@ def main():
     return
 
 
-if __name__ == "__main__" and len(sys.argv) == 2:
-    main(*sys.argv[1:])
-else:
-    print("{0}\n{1}\n{0}".format("="*100, __doc__))
+if __name__ == "__main__":
+    if len(sys.argv) == 2:
+        main(*sys.argv[1:])
+    else:
+        print("{0}\n{1}\n{0}".format("="*100, __doc__))
 
