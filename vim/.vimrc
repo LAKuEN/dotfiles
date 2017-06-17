@@ -1,6 +1,7 @@
 " Visual----------
-"set background=dark
+set background=dark
 "colorscheme greenvision
+"colorscheme molokai
 "colorscheme solarized
 "colorscheme hybrid
 colorscheme railscasts
