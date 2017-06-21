@@ -1,8 +1,5 @@
 # coding: UTF-8
 '''Summary
-
-Usage:
-    python {{_name_}}.py
 '''
 from __future__ import print_function
 import argparse
