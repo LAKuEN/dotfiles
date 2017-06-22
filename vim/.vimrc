@@ -49,6 +49,7 @@ imap <C-j> <esc>
 " Specify
 ""Markdown----------
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+nnoremap <silent> <C-p> :PrevimOpen<CR>
 "----------
 
 " Python----------
