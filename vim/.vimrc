@@ -125,34 +125,48 @@ endfunction
 "----------"
 
 "dein Scripts-----------------------------
-if has('nvim')
-    " Required:
-    let s:dein_path = expand('~/.vim/pack/lakuen/start/dein')
-    set runtimepath+=~/.vim/pack/lakuen/start/dein/repos/github.com/Shougo/dein.vim
+" Required:
+let s:dein_path = expand('~/.vim/pack/lakuen/start/dein')
+set runtimepath+=~/.vim/pack/lakuen/start/dein/repos/github.com/Shougo/dein.vim
 
-    if dein#load_state(s:dein_path)
-        call dein#begin(s:dein_path)
-        call dein#add('Shougo/dein.vim')
+if dein#load_state(s:dein_path)
+    call dein#begin(s:dein_path)
+    call dein#add('Shougo/dein.vim')
 
-        " Add or remove your plugins here:
-        call dein#add('Shougo/neosnippet.vim')
-        call dein#add('Shougo/neosnippet-snippets')
-        call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
+    " Add or remove your plugins here:
+    call dein#add('Shougo/neosnippet.vim')
+    call dein#add('Shougo/neosnippet-snippets')
+    call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
+
+    " NeoVim専用
+    if has('nvim')
         call dein#add('Shougo/deoplete.nvim')
         call dein#add('zchee/deoplete-jedi')
 
-        call dein#end()
-        call dein#save_state()
+        " TABでの補完
+        inoremap <silent><expr> <TAB>
+        \ pumvisible() ? "\<C-n>" :
+        \ <SID>check_back_space() ? "\<TAB>" :
+        \ deoplete#mappings#manual_complete()
+        function! s:check_back_space() abort "{{{
+        let col = col('.') - 1
+        return !col || getline('.')[col - 1]  =~ '\s'
+        endfunction"}}}
+    endif
 
-        if dein#check_install()
-            call dein#install()
-        endif
+    call dein#add('Vimjas/vim-python-pep8-indent')
+    call dein#add('majutsushi/tagbar')
 
-        let g:dein#enable_notification = 1
-        let g:deoplete#enable_at_startup = 1
+    call dein#end()
+    call dein#save_state()
 
+    if dein#check_install()
+        call dein#install()
     endif
 endif
+
+let g:dein#enable_notification = 1
+let g:deoplete#enable_at_startup = 1
 
 " Required:
 syntax enable

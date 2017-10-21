@@ -3,6 +3,6 @@
 previm-function.js
 .netrwhist
 __pycache__
-cache_nvim
-state_nvim.vim
+cache_*vim
+state_*vim.vim
 *.cache
