@@ -1,0 +1,3 @@
+[submodule "vim/.vim/pack/LAKuEN/start/dein.vim"]
+	path = vim/.vim/pack/LAKuEN/start/dein.vim
+	url = https://github.com/Shougo/dein.vim.git

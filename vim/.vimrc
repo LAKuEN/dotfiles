@@ -126,8 +126,8 @@ endfunction
 
 "dein Scripts-----------------------------
 " Required:
-let s:dein_path = expand('~/.vim/pack/lakuen/start/dein')
-set runtimepath+=~/.vim/pack/lakuen/start/dein/repos/github.com/Shougo/dein.vim
+let s:dein_path = expand('~/.vim/pack/lakuen/start/dein.vim/extension')
+set runtimepath+=~/.vim/pack/lakuen/start/dein.vim
 
 if dein#load_state(s:dein_path)
     call dein#begin(s:dein_path)
