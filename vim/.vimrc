@@ -139,7 +139,7 @@ if dein#load_state(s:dein_path)
     call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
 
     " NeoVim専用
-    if has('nvim')
+    if has('nvim') || has('vi')
         call dein#add('Shougo/deoplete.nvim')
         call dein#add('zchee/deoplete-jedi')
 
