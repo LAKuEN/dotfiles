@@ -5,7 +5,7 @@ set background=dark
 "colorscheme solarized
 "colorscheme hybrid
 colorscheme railscasts
-syntax on
+" syntax on
 set number
 set ruler "現在カーソルが表示されている行・文字番号を画面右下に表示
 set textwidth=0 "文字列の折り返しを無効
@@ -13,12 +13,12 @@ set hlsearch "検索条件に合致した箇所をハイライト
 set list
 "タブ文字の表示
 set listchars=tab:¦_,eol:↲,extends:»,precedes:«,nbsp:%
-" 行列ハイライト
-set cursorline cursorcolumn
-set ambiwidth=double  "全角記号の幅
+"全角記号の幅
+set ambiwidth=double
+" 行列ハイライト: 重い！！！
+" set cursorline cursorcolumn
 " 現在行強調
-set cursorline
-highlight CursorLine cterm=underline ctermfg=NONE ctermbg=NONE
+" highlight CursorLine cterm=underline ctermfg=NONE ctermbg=NONE
 
 " Input---------
 set autoindent
@@ -124,3 +124,36 @@ function! ALEStatus()
 endfunction
 "----------"
 
+"dein Scripts-----------------------------
+if has('nvim')
+    " Required:
+    let s:dein_path = expand('~/.vim/pack/lakuen/start/dein')
+    set runtimepath+=~/.vim/pack/lakuen/start/dein/repos/github.com/Shougo/dein.vim
+
+    if dein#load_state(s:dein_path)
+        call dein#begin(s:dein_path)
+        call dein#add('Shougo/dein.vim')
+
+        " Add or remove your plugins here:
+        call dein#add('Shougo/neosnippet.vim')
+        call dein#add('Shougo/neosnippet-snippets')
+        call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
+        call dein#add('Shougo/deoplete.nvim')
+        call dein#add('zchee/deoplete-jedi')
+
+        call dein#end()
+        call dein#save_state()
+
+        if dein#check_install()
+            call dein#install()
+        endif
+
+        let g:dein#enable_notification = 1
+        let g:deoplete#enable_at_startup = 1
+
+    endif
+endif
+
+" Required:
+syntax enable
+"End dein Scripts-------------------------

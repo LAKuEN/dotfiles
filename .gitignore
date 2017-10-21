@@ -1,4 +1,8 @@
-*.sw*
+.*.sw*
 .DS_Store
 previm-function.js
 .netrwhist
+__pycache__
+cache_nvim
+state_nvim.vim
+*.cache
