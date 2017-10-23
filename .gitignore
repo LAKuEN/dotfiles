@@ -6,3 +6,4 @@ __pycache__
 cache_*vim
 state_*vim.vim
 *.cache
+vim/.vim/pack/LAKuEN/start/*
