@@ -1,7 +1,6 @@
 # coding: UTF-8
 '''Summary
 '''
-from __future__ import print_function
 import argparse
 import codecs
 import csv
