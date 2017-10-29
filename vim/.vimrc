@@ -143,16 +143,16 @@ if dein#load_state(s:dein_path)
         call dein#add('Shougo/deoplete.nvim')
         call dein#add('zchee/deoplete-jedi')
 
-        " TABでの補完
-        inoremap <silent><expr> <TAB>
-        \ pumvisible() ? "\<C-n>" :
-        \ <SID>check_back_space() ? "\<TAB>" :
-        \ deoplete#mappings#manual_complete()
-        function! s:check_back_space() abort "{{{
-        let col = col('.') - 1
-        return !col || getline('.')[col - 1]  =~ '\s'
-        endfunction"}}}
     endif
+    " TABでの補完
+    inoremap <silent><expr> <TAB>
+    \ pumvisible() ? "\<C-n>" :
+    \ <SID>check_back_space() ? "\<TAB>" :
+    \ deoplete#mappings#manual_complete()
+    function! s:check_back_space() abort "{{{
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
+    endfunction"}}}
 
     call dein#add('Vimjas/vim-python-pep8-indent')
     call dein#add('majutsushi/tagbar')
