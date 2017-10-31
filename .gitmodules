@@ -1,6 +1,0 @@
-[submodule "vim/.vim/pack/LAKuEN/start/dein.vim"]
-	path = vim/.vim/pack/LAKuEN/start/dein.vim
-	url = https://github.com/Shougo/dein.vim.git
-[submodule "vim/.vim/pack/LAKuEN/start/nerdtree"]
-	path = vim/.vim/pack/LAKuEN/start/nerdtree
-	url = https://github.com/scrooloose/nerdtree.git

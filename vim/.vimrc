@@ -20,7 +20,8 @@ let &runtimepath = s:dein_repo_dir .",". &runtimepath
 " let s:toml_file = fnamemodify(expand('<sfile>'), ':h').'/dein.toml'
 "
 "/Users/yusuke/git/dotfiles/vim
-let s:toml_file = '/Users/yusuke/git/dotfiles/vim/dein.toml'
+let s:toml_file = $HOME . '/git/dotfiles/vim/dein.toml'
+" let s:toml_file = '/Users/yusuke/git/dotfiles/vim/dein.toml'
 " let s:toml_file = $XDG_CONFIG_HOME . '/nvim/dein.toml'
 if dein#load_state(s:dein_dir)
   call dein#begin(s:dein_dir)

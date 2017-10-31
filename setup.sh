@@ -1,5 +1,6 @@
 #!/bin/bash
 echo 'export XDG_CONFIG_HOME="$HOME/.config"' >> $HOME/.bashrc && source $HOME/.bashrc
+mkdir -p $XDG_CONFIG_HOME
 
 # Vim
 ln -nfs $HOME/git/dotfiles/vim/.vim $HOME/.vim
