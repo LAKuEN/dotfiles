@@ -1,0 +1,126 @@
+[[plugins]]
+repo = 'Shougo/dein.vim'
+hook_add = '''
+    let g:dein#enable_notification = 1
+'''
+
+[[plugins]]
+repo = 'Shougo/deoplete.nvim'
+hook_add = '''
+    let g:deoplete#enable_at_startup = 1
+    let g:deoplete#auto_complete_delay = 0
+    let g:deoplete#auto_complete_start_length = 1
+    let g:deoplete#enable_refresh_always = 0
+    " TABでの補完
+    inoremap <silent><expr> <TAB>
+    \ pumvisible() ? "\<C-n>" :
+    \ <SID>check_back_space() ? "\<TAB>" :
+    \ deoplete#mappings#manual_complete()
+    function! s:check_back_space() abort "{{{
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
+    endfunction"}}}
+'''
+depends = ['neosnippet.vim', 'neosnippet-snippets']
+
+[[plugins]]
+repo = 'Shougo/neosnippet.vim'
+
+[[plugins]]
+repo = 'Shougo/neosnippet-snippets'
+
+[[plugins]]
+repo = 'zchee/deoplete-jedi'
+depends = ['deoplete.nvim']
+
+[[plugins]]
+repo = 'Vimjas/vim-python-pep8-indent'
+
+[[plugins]]
+repo = 'majutsushi/tagbar'
+
+
+[[plugins]]
+repo = 'w0rp/ale'
+hook_add = '''
+    function! ALEStatus()
+      return ALEGetStatusLine()
+    endfunction
+    let g:ale_linters = {
+    \   'python': ['flake8'],
+    \}
+    let g:ale_sign_column_always = 1
+    let g:ale_sign_error = "!!"
+    let g:ale_sign_warning = ">>"
+    let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
+    highlight clear ALEErrorSign
+    highlight clear ALEWarningSign
+'''
+
+[[plugins]]
+repo = 'mattn/sonictemplate-vim'
+
+[[plugins]]
+repo = 'aklt/plantuml-syntax'
+hook_add = '''
+    let g:plantuml_executable_script = "$HOME/.plantuml"
+'''
+
+[[plugins]]
+repo = 'simeji/winresizer'
+
+[[plugins]]
+repo = 'tomasr/molokai'
+
+[[plugins]]
+repo = 'kannokanno/previm'
+hook_add = '''
+    nnoremap <silent> <C-p> :PrevimOpen<CR>
+'''
+
+[[plugins]]
+repo = 'scrooloose/nerdtree'
+hook_add = '''
+    autocmd StdinReadPre * let s:std_in=1
+    autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+    map <C-n> :NERDTreeToggle<CR>
+'''
+
+[[plugins]]
+repo = 'itchyny/lightline.vim'
+hook_add = '''
+    let g:lightline = {
+    \   'component_expand': {
+    \     'ale': 'ALEGetStatusLine',
+    \   },
+    \   'component_type': {
+    \     'syntaxcheck': 'error',
+    \   },
+    \   'colorscheme': 'powerline',
+    \   'mode_map': {'c': 'NORMAL'},
+    \   'active': {
+    \     'left': [
+    \       ['mode', 'paste'],
+    \       ['readonly', 'filename', 'modified', 'ale'],
+    \     ],
+    \     'right': [
+    \       ['syntaxcheck'],
+    \     ]
+    \   },
+    \}
+    let g:lightline = {
+    \ 'colorscheme': 'powerline',
+    \}
+    let g:lightline = {
+    \   'active': {
+    \     'left': [
+    \       ['mode', 'paste'],
+    \       ['readonly', 'filename', 'modified'],
+    \       ['ale'],
+    \     ]
+    \   },
+    \   'component_function': {
+    \     'ale': 'ALEStatus'
+    \   }
+    \}
+'''

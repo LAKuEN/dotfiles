@@ -1,4 +1,10 @@
 #!/bin/bash
-ln -nfs ~/git/dotfiles/vim/.vim ~/.vim
-ln -nfs ~/git/dotfiles/vim/.vimrc ~/.vimrc
+echo 'export XDG_CONFIG_HOME="$HOME/.config"' >> $HOME/.bashrc && source $HOME/.bashrc
 
+# Vim
+ln -nfs $HOME/git/dotfiles/vim/.vim $HOME/.vim
+ln -nfs $HOME/git/dotfiles/vim/.vimrc $HOME/.vimrc
+
+# NeoVim
+ln -nfs $HOME/git/dotfiles/vim/.vim $XDG_CONFIG_HOME/nvim
+ln -nfs $HOME/git/dotfiles/vim/.vimrc $XDG_CONFIG_HOME/nvim/init.vim
