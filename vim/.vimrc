@@ -1,5 +1,5 @@
 if !&compatible
-    set nocompatible
+  set nocompatible
 endif
 
 " reset augroup
@@ -21,8 +21,6 @@ let &runtimepath = s:dein_repo_dir .",". &runtimepath
 "
 "/Users/yusuke/git/dotfiles/vim
 let s:toml_file = $HOME . '/git/dotfiles/vim/dein.toml'
-" let s:toml_file = '/Users/yusuke/git/dotfiles/vim/dein.toml'
-" let s:toml_file = $XDG_CONFIG_HOME . '/nvim/dein.toml'
 if dein#load_state(s:dein_dir)
   call dein#begin(s:dein_dir)
   call dein#load_toml(s:toml_file)
@@ -34,60 +32,18 @@ if has('vim_starting') && dein#check_install()
   call dein#install()
 endif
 
-"dein Scripts-----------------------------
-" " Required:
-" let s:dein_path = expand('~/.vim/pack/lakuen/start/dein.vim/extension')
-" set runtimepath+=~/.vim/pack/lakuen/start/dein.vim
-" 
-" if dein#load_state(s:dein_path)
-"     call dein#begin(s:dein_path)
-"     call dein#add('Shougo/dein.vim')
-" 
-"     " Add or remove your plugins here:
-"     call dein#add('Shougo/neosnippet.vim')
-"     call dein#add('Shougo/neosnippet-snippets')
-"     call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
-" 
-"     " NeoVim専用
-"     if has('nvim') || has('vi')
-"         call dein#add('Shougo/deoplete.nvim')
-"         call dein#add('zchee/deoplete-jedi')
-" 
-"     endif
-"     " TABでの補完
-"     inoremap <silent><expr> <TAB>
-"     \ pumvisible() ? "\<C-n>" :
-"     \ <SID>check_back_space() ? "\<TAB>" :
-"     \ deoplete#mappings#manual_complete()
-"     function! s:check_back_space() abort "{{{
-"     let col = col('.') - 1
-"     return !col || getline('.')[col - 1]  =~ '\s'
-"     endfunction"}}}
-" 
-"     call dein#add('Vimjas/vim-python-pep8-indent')
-"     call dein#add('majutsushi/tagbar')
-" 
-"     call dein#end()
-"     call dein#save_state()
-" 
-"     if dein#check_install()
-"         call dein#install()
-"     endif
-" endif
-" 
-" let g:dein#enable_notification = 1
-" let g:deoplete#enable_at_startup = 1
-" let g:deoplete#auto_complete_delay = 0
-" let g:deoplete#auto_complete_start_length = 1
-" let g:deoplete#enable_refresh_always = 0
-" 
-" " Required:
-" syntax enable
-" "End dein Scripts-------------------------
+" NeoVim----------
+if has('nvim')
+    tnoremap <silent> <ESC> <C-\><C-n>
+endif
 
 " Visual----------
 set background=dark
-colorscheme railscasts
+" colorscheme railscasts
+" colorscheme hornet
+" colorscheme Tomorrow-Night-Bright
+" colorscheme hybrid_reverse
+syntax enable
 set number
 set ruler
 set textwidth=0
@@ -140,74 +96,6 @@ hi DiffChange ctermfg=white ctermbg=240
 hi DiffDelete ctermfg=white ctermbg=240
 "----------
 
-" ALE----------
-" let g:ale_linters = {
-" \   'python': ['flake8'],
-" \}
-" let g:ale_sign_column_always = 1
-" let g:ale_sign_error = "!!"
-" let g:ale_sign_warning = ">>"
-" let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
-" highlight clear ALEErrorSign
-" highlight clear ALEWarningSign
-"----------
-
 "lightline----------
 " 下部の表示領域のサイズの調整？
 set laststatus=2
-set runtimepath+=~/.vim/pack/LAKuEN/start/lightline.vim/
-
-" lightline.vimの設定
-" let g:lightline = {
-" \   'component_expand': {
-" \     'ale': 'ALEGetStatusLine',
-" \   },
-" \   'component_type': {
-" \     'syntaxcheck': 'error',
-" \   },
-" \   'colorscheme': 'powerline',
-" \   'mode_map': {'c': 'NORMAL'},
-" \   'active': {
-" \     'left': [
-" \       ['mode', 'paste'],
-" \       ['readonly', 'filename', 'modified', 'ale'],
-" \     ],
-" \     'right': [
-" \       ['syntaxcheck'],
-" \     ]
-" \   },
-" \}
-" let g:lightline = {
-" \ 'colorscheme': 'powerline',
-" \}
-" let g:lightline = {
-" \   'active': {
-" \     'left': [
-" \       ['mode', 'paste'],
-" \       ['readonly', 'filename', 'modified'],
-" \       ['ale'],
-" \     ]
-" \   },
-" \   'component_function': {
-" \     'ale': 'ALEStatus'
-" \   }
-" \}
-
-" function! ALEStatus()
-"   return ALEGetStatusLine()
-" endfunction
-"----------"
-
-
-"NERDTree----------
-" autocmd StdinReadPre * let s:std_in=1
-" autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-" map <C-n> :NERDTreeToggle<CR>
-"NERDTree----------
-
-" let g:dein#enable_notification = 1
-" let g:deoplete#enable_at_startup = 1
-" let g:deoplete#auto_complete_delay = 0
-" let g:deoplete#auto_complete_start_length = 1
-" let g:deoplete#enable_refresh_always = 0
-syntax enable

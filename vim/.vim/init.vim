@@ -1,1 +1,1 @@
-/Users/Yusuke/.vimrc
+/Users/ysk/git/dotfiles/vim/.vimrc

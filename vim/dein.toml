@@ -7,10 +7,15 @@ hook_add = '''
 [[plugins]]
 repo = 'Shougo/deoplete.nvim'
 hook_add = '''
+    let g:python3_host_prog = $PYENV_ROOT . '/shims/python3'
     let g:deoplete#enable_at_startup = 1
     let g:deoplete#auto_complete_delay = 0
     let g:deoplete#auto_complete_start_length = 1
+    let g:neocomplete#enable_auto_close_preview = 1
     let g:deoplete#enable_refresh_always = 0
+    " <C-h>, <BS>: close popup and delete backword char.
+    inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
+    inoremap <expr><BS>  deoplete#smart_close_popup()."\<C-h>"
     " TABでの補完
     inoremap <silent><expr> <TAB>
     \ pumvisible() ? "\<C-n>" :
@@ -59,6 +64,9 @@ hook_add = '''
 
 [[plugins]]
 repo = 'mattn/sonictemplate-vim'
+hook_add = '''
+    let g:sonictemplate_vim_template_dir = '/Users/ysk/git/dotfiles/vim/template'
+'''
 
 [[plugins]]
 repo = 'aklt/plantuml-syntax'
@@ -69,8 +77,8 @@ hook_add = '''
 [[plugins]]
 repo = 'simeji/winresizer'
 
-[[plugins]]
-repo = 'tomasr/molokai'
+# [[plugins]]
+# repo = 'tomasr/molokai'
 
 [[plugins]]
 repo = 'kannokanno/previm'
@@ -123,4 +131,20 @@ hook_add = '''
     \     'ale': 'ALEStatus'
     \   }
     \}
+'''
+
+[[plugins]]
+repo = 'freeo/vim-kalisi'
+
+[[plugins]]
+repo = 'tomasr/molokai'
+
+[[plugins]]
+repo = 'lifepillar/vim-solarized8'
+
+[[plugins]]
+repo = 'kristijanhusak/vim-hybrid-material'
+hook_add = '''
+    set background=dark
+    autocmd MyAutoCmd VimEnter * nested colorscheme hybrid_reverse
 '''
