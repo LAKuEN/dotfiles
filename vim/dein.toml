@@ -7,7 +7,7 @@ hook_add = '''
 [[plugins]]
 repo = 'Shougo/deoplete.nvim'
 hook_add = '''
-    let g:python3_host_prog = $PYENV_ROOT . '/shims/python3'
+    let g:python3_host_prog = "/usr/local/bin/python3"
     let g:deoplete#enable_at_startup = 1
     let g:deoplete#auto_complete_delay = 0
     let g:deoplete#auto_complete_start_length = 1
@@ -26,6 +26,8 @@ hook_add = '''
     return !col || getline('.')[col - 1]  =~ '\s'
     endfunction"}}}
 '''
+# TODO Linuxのコマンドの実行結果を変数に代入する
+# let g:python3_host_prog = $PYENV_ROOT . '/shims/python3'
 depends = ['neosnippet.vim', 'neosnippet-snippets']
 
 [[plugins]]
@@ -65,25 +67,32 @@ hook_add = '''
 [[plugins]]
 repo = 'mattn/sonictemplate-vim'
 hook_add = '''
-    let g:sonictemplate_vim_template_dir = '/Users/ysk/git/dotfiles/vim/template'
+    let g:sonictemplate_vim_template_dir = '$HOME/git/dotfiles/vim/template'
 '''
+# let g:sonictemplate_vim_template_dir = '/Users/ysk/git/dotfiles/vim/template'
 
 [[plugins]]
 repo = 'aklt/plantuml-syntax'
 hook_add = '''
-    let g:plantuml_executable_script = "$HOME/.plantuml"
+    let g:plantuml_executable_script = '$HOME/.plantuml'
 '''
 
 [[plugins]]
 repo = 'simeji/winresizer'
 
-# [[plugins]]
-# repo = 'tomasr/molokai'
+[[plugins]]
+repo = 'tomasr/molokai'
+
+[[plugins]]
+repo = 'tyru/open-browser.vim'
 
 [[plugins]]
 repo = 'kannokanno/previm'
 hook_add = '''
-    nnoremap <silent> <C-p> :PrevimOpen<CR>
+    augroup PrevimSettings
+        autocmd!
+        autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
+    augroup END
 '''
 
 [[plugins]]
@@ -134,6 +143,10 @@ hook_add = '''
 '''
 
 [[plugins]]
+repo = 'qpkorr/vim-bufkill'
+
+# ----- colorscheme ----- #
+[[plugins]]
 repo = 'freeo/vim-kalisi'
 
 [[plugins]]
@@ -145,6 +158,5 @@ repo = 'lifepillar/vim-solarized8'
 [[plugins]]
 repo = 'kristijanhusak/vim-hybrid-material'
 hook_add = '''
-    set background=dark
     autocmd MyAutoCmd VimEnter * nested colorscheme hybrid_reverse
 '''

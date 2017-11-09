@@ -19,7 +19,6 @@ let &runtimepath = s:dein_repo_dir .",". &runtimepath
 " プラグイン読み込み＆キャッシュ作成
 " let s:toml_file = fnamemodify(expand('<sfile>'), ':h').'/dein.toml'
 "
-"/Users/yusuke/git/dotfiles/vim
 let s:toml_file = $HOME . '/git/dotfiles/vim/dein.toml'
 if dein#load_state(s:dein_dir)
   call dein#begin(s:dein_dir)
@@ -39,10 +38,6 @@ endif
 
 " Visual----------
 set background=dark
-" colorscheme railscasts
-" colorscheme hornet
-" colorscheme Tomorrow-Night-Bright
-" colorscheme hybrid_reverse
 syntax enable
 set number
 set ruler
@@ -79,15 +74,10 @@ imap <C-j> <esc>
 " Specify
 ""Markdown----------
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
-" nnoremap <silent> <C-p> :PrevimOpen<CR>
 "----------
 
 " Python----------
 let g:python_highlight_all = 1
-"----------
-
-" PlantUML----------
-" let g:plantuml_executable_script = "~/.plantuml"
 "----------
 
 " diff----------
