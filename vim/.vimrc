@@ -46,6 +46,7 @@ set hlsearch
 set list
 set listchars=tab:¦_,eol:↲,extends:»,precedes:«,nbsp:%
 set ambiwidth=double
+set showtabline=2
 
 " Input---------
 set autoindent

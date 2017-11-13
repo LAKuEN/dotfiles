@@ -59,7 +59,7 @@ hook_add = '''
     let g:ale_sign_column_always = 1
     let g:ale_sign_error = "!!"
     let g:ale_sign_warning = ">>"
-    let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
+    let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '○ OK']
     highlight clear ALEErrorSign
     highlight clear ALEWarningSign
 '''
@@ -69,7 +69,6 @@ repo = 'mattn/sonictemplate-vim'
 hook_add = '''
     let g:sonictemplate_vim_template_dir = '$HOME/git/dotfiles/vim/template'
 '''
-# let g:sonictemplate_vim_template_dir = '/Users/ysk/git/dotfiles/vim/template'
 
 [[plugins]]
 repo = 'aklt/plantuml-syntax'
@@ -106,44 +105,58 @@ hook_add = '''
 [[plugins]]
 repo = 'itchyny/lightline.vim'
 hook_add = '''
+	function! FilePath()
+		if winwidth(0) > 90
+			return expand("%:s")
+		else
+			return expand("%:t")
+		endif
+	endfunction
     let g:lightline = {
-    \   'component_expand': {
-    \     'ale': 'ALEGetStatusLine',
-    \   },
-    \   'component_type': {
-    \     'syntaxcheck': 'error',
-    \   },
-    \   'colorscheme': 'powerline',
-    \   'mode_map': {'c': 'NORMAL'},
-    \   'active': {
-    \     'left': [
-    \       ['mode', 'paste'],
-    \       ['readonly', 'filename', 'modified', 'ale'],
-    \     ],
-    \     'right': [
-    \       ['syntaxcheck'],
-    \     ]
-    \   },
-    \}
-    let g:lightline = {
-    \ 'colorscheme': 'powerline',
-    \}
-    let g:lightline = {
-    \   'active': {
-    \     'left': [
-    \       ['mode', 'paste'],
-    \       ['readonly', 'filename', 'modified'],
-    \       ['ale'],
-    \     ]
-    \   },
-    \   'component_function': {
-    \     'ale': 'ALEStatus'
-    \   }
-    \}
+        \   'component_function': {
+        \      'ale': 'ALEStatus',
+        \      'filepath': 'FilePath',
+        \      'gitbranch': 'fugitive#head'
+        \   },
+        \   'colorscheme': 'wombat'}
+        " \   'colorscheme': 'powerline'}
+    " TODO 適宜直す
+    let g:lightline.mode_map = {
+        \ 'n' : 'NORMAL',
+        \ 'i' : 'INSERT',
+        \ 'R' : 'REPLACE',
+        \ 'v' : 'VISUAL',
+        \ 'V' : 'V-LINE',
+        \ "\<C-v>": 'V-BLOCK',
+        \ 'c' : 'COMMAND',
+        \ 's' : 'SELECT',
+        \ 'S' : 'S-LINE',
+        \ "\<C-s>": 'S-BLOCK',
+        \ 't': 'TERMINAL',
+        \ }
+    let g:lightline.active = {
+        \ 'left': [['mode', 'paste'],
+        \          ['readonly', 'filepath', 'modified', 'gitbranch']],
+        \ 'right': [['percent', 'lineinfo'],
+        \           ['ale'],
+        \           ['fileformat', 'fileencoding', 'filetype']]}
+    let g:lightline.inactive = {
+        \ 'left': [['filepath', 'modified', 'gitbranch']],
+        \ 'right': [['percent', 'lineinfo'],
+        \           ['ale']]}
+    let g:lightline.tabline = {
+        \ 'left': [['tabs']],
+        \ 'right': [['close']]}
+    let g:lightline.component_type = {
+        \ 'tabs': 'tabsel',
+        \ 'close': 'raw' }
 '''
 
 [[plugins]]
 repo = 'qpkorr/vim-bufkill'
+
+[[plugins]]
+repo = 'tpope/vim-fugitive'
 
 # ----- colorscheme ----- #
 [[plugins]]
