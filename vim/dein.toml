@@ -11,7 +11,6 @@ hook_add = '''
     let g:deoplete#enable_at_startup = 1
     let g:deoplete#auto_complete_delay = 0
     let g:deoplete#auto_complete_start_length = 1
-    let g:neocomplete#enable_auto_close_preview = 1
     let g:deoplete#enable_refresh_always = 0
     " <C-h>, <BS>: close popup and delete backword char.
     inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
@@ -25,9 +24,10 @@ hook_add = '''
     let col = col('.') - 1
     return !col || getline('.')[col - 1]  =~ '\s'
     endfunction"}}}
+
+    " preview(ウィンドウ分割されて表示されるやつ)を無効化
+    set completeopt-=preview
 '''
-# TODO Linuxのコマンドの実行結果を変数に代入する
-# let g:python3_host_prog = $PYENV_ROOT . '/shims/python3'
 depends = ['neosnippet.vim', 'neosnippet-snippets']
 
 [[plugins]]
