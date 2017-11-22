@@ -4,6 +4,7 @@ hook_add = '''
     let g:dein#enable_notification = 1
 '''
 
+# ----- tools ----- #
 [[plugins]]
 repo = 'Shougo/deoplete.nvim'
 hook_add = '''
@@ -44,8 +45,13 @@ depends = ['deoplete.nvim']
 repo = 'Vimjas/vim-python-pep8-indent'
 
 [[plugins]]
-repo = 'majutsushi/tagbar'
+repo = 'fatih/vim-go'
+hook_add = '''
+    let g:go_fmt_fail_silently = 1
+'''
 
+[[plugins]]
+repo = 'majutsushi/tagbar'
 
 [[plugins]]
 repo = 'w0rp/ale'
@@ -55,6 +61,7 @@ hook_add = '''
     endfunction
     let g:ale_linters = {
     \   'python': ['flake8'],
+    \   'go': ['gofmt'],
     \}
     let g:ale_sign_column_always = 1
     let g:ale_sign_error = "!!"
@@ -74,6 +81,12 @@ hook_add = '''
 repo = 'aklt/plantuml-syntax'
 hook_add = '''
     let g:plantuml_executable_script = '$HOME/.plantuml'
+'''
+
+[[plugins]]
+repo = 'ctrlpvim/ctrlp.vim'
+hook_add = '''
+    let g:ctrlp_cmd = 'CtrlPMRU'
 '''
 
 [[plugins]]
@@ -97,59 +110,11 @@ hook_add = '''
 [[plugins]]
 repo = 'scrooloose/nerdtree'
 hook_add = '''
+    let g:NERDTreeDirArrows = 1
     autocmd StdinReadPre * let s:std_in=1
     autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+    " TODO リフレッシュを毎回掛けたい
     map <C-n> :NERDTreeToggle<CR>
-'''
-
-[[plugins]]
-repo = 'itchyny/lightline.vim'
-hook_add = '''
-	function! FilePath()
-		if winwidth(0) > 90
-			return expand("%:s")
-		else
-			return expand("%:t")
-		endif
-	endfunction
-    let g:lightline = {
-        \   'component_function': {
-        \      'ale': 'ALEStatus',
-        \      'filepath': 'FilePath',
-        \      'gitbranch': 'fugitive#head'
-        \   },
-        \   'colorscheme': 'wombat'}
-        " \   'colorscheme': 'powerline'}
-    " TODO 適宜直す
-    let g:lightline.mode_map = {
-        \ 'n' : 'NORMAL',
-        \ 'i' : 'INSERT',
-        \ 'R' : 'REPLACE',
-        \ 'v' : 'VISUAL',
-        \ 'V' : 'V-LINE',
-        \ "\<C-v>": 'V-BLOCK',
-        \ 'c' : 'COMMAND',
-        \ 's' : 'SELECT',
-        \ 'S' : 'S-LINE',
-        \ "\<C-s>": 'S-BLOCK',
-        \ 't': 'TERMINAL',
-        \ }
-    let g:lightline.active = {
-        \ 'left': [['mode', 'paste'],
-        \          ['readonly', 'filepath', 'modified', 'gitbranch']],
-        \ 'right': [['percent', 'lineinfo'],
-        \           ['ale'],
-        \           ['fileformat', 'fileencoding', 'filetype']]}
-    let g:lightline.inactive = {
-        \ 'left': [['filepath', 'modified', 'gitbranch']],
-        \ 'right': [['percent', 'lineinfo'],
-        \           ['ale']]}
-    let g:lightline.tabline = {
-        \ 'left': [['tabs']],
-        \ 'right': [['close']]}
-    let g:lightline.component_type = {
-        \ 'tabs': 'tabsel',
-        \ 'close': 'raw' }
 '''
 
 [[plugins]]
@@ -158,7 +123,85 @@ repo = 'qpkorr/vim-bufkill'
 [[plugins]]
 repo = 'tpope/vim-fugitive'
 
-# ----- colorscheme ----- #
+# ----- visual ----- #
+[[plugins]]
+repo = 'ryanoasis/vim-devicons'
+hook_add = '''
+    let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+    let g:webdevicons_conceal_nerdtree_brackets = 1
+    let g:WebDevIconsNerdTreeAfterGlyphPadding = ' '
+    let g:DevIconsEnableFoldersOpenClose = 1
+    let g:DevIconsDefaultFolderDefaultSymbol = ''
+    let g:DevIconsDefaultFolderOpenSymbol = ''
+    let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {}
+    let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['html'] = ''
+    let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['css'] = ''
+    let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['md'] = ''
+    let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['txt'] = ''
+'''
+
+[[plugins]]
+repo = 'itchyny/lightline.vim'
+hook_add = '''
+    set laststatus=2
+    function! FilePath()
+        if winwidth(0) > 90
+            return expand("%:s")
+        else
+            return expand("%:t")
+        endif
+    endfunction
+    " set guifont=Ricty\ Regular\ Powerline:h18
+    " FIXME このフォントを使っていると隙間ができる
+    set guifont=RictyDiminished\ Nerd\ Font\ Regular:h18
+    let g:lightline = {
+        \   'mode_map': {
+        \      'c': 'COMMAND',
+        \      'i': 'INSERT',
+        \      'n': 'NORMAL',
+        \      's': 'SELECT',
+        \      't': 'TERMINAL',
+        \      'v': 'VISUAL',
+        \      'R': 'REPLACE',
+        \      'S': 'S-LINE',
+        \      'V': 'V-LINE',
+        \      "\<C-s>": 'S-BLOCK',
+        \      "\<C-v>": 'V-BLOCK',
+        \   },
+        \   'colorscheme': 'powerline',
+        \   'component_function': {
+        \      'ale': 'ALEStatus',
+        \      'filepath': 'FilePath',
+        \      'gitbranch': 'fugitive#head'
+        \   },
+        \   'component_type': {
+        \      'tabs': 'tabsel',
+        \      'close': 'raw' 
+        \   },
+        \   'separator': {
+        \      'left': "\ue0b0",
+        "\      'right': "\ue0b2"
+        \   },
+        \   'subseparator': {
+        "\      'left': "\ue0b1",
+        "\      'right': "\ue0b3"
+        \   },
+        \   'tabline': {
+        \      'left': [['tabs']],
+        \      'right': [['close']]
+        \   },
+        \   'active': {
+        \      'left': [['mode', 'paste'], ['readonly', 'filepath', 'modified', 'gitbranch']],
+        \      'right': [['percent', 'lineinfo'], ['ale']],
+        \   },
+        \   'inactive': {
+        \      'left': [['filepath', 'modified', 'gitbranch']],
+        \      'right': [['percent', 'lineinfo']],
+        \   },
+        \ }
+'''
+
+## ----- colorscheme ----- ##
 [[plugins]]
 repo = 'freeo/vim-kalisi'
 
@@ -166,10 +209,13 @@ repo = 'freeo/vim-kalisi'
 repo = 'tomasr/molokai'
 
 [[plugins]]
-repo = 'lifepillar/vim-solarized8'
+repo = 'altercation/vim-colors-solarized'
 
 [[plugins]]
 repo = 'kristijanhusak/vim-hybrid-material'
 hook_add = '''
     autocmd MyAutoCmd VimEnter * nested colorscheme hybrid_reverse
 '''
+
+[[plugins]]
+repo = 'archSeer/colibri.vim'

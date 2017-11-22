@@ -87,6 +87,3 @@ hi DiffChange ctermfg=white ctermbg=240
 hi DiffDelete ctermfg=white ctermbg=240
 "----------
 
-"lightline----------
-" 下部の表示領域のサイズの調整？
-set laststatus=2
