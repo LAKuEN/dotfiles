@@ -213,9 +213,15 @@ repo = 'altercation/vim-colors-solarized'
 
 [[plugins]]
 repo = 'kristijanhusak/vim-hybrid-material'
-hook_add = '''
-    autocmd MyAutoCmd VimEnter * nested colorscheme hybrid_reverse
-'''
+# hook_add = '''
+#     autocmd MyAutoCmd VimEnter * nested colorscheme hybrid_reverse
+# '''
 
 [[plugins]]
 repo = 'archSeer/colibri.vim'
+
+[[plugins]]
+repo = 'fcpg/vim-fahrenheit'
+hook_add = '''
+    autocmd MyAutoCmd VimEnter * nested colorscheme fahrenheit
+'''
