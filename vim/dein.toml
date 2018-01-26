@@ -103,7 +103,8 @@ repo = 'kannokanno/previm'
 hook_add = '''
     augroup PrevimSettings
         autocmd!
-        autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
+        "autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
+        autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*,pml} set filetype=markdown
     augroup END
 '''
 
@@ -113,7 +114,6 @@ hook_add = '''
     let g:NERDTreeDirArrows = 1
     autocmd StdinReadPre * let s:std_in=1
     autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-    " TODO リフレッシュを毎回掛けたい
     map <C-n> :NERDTreeToggle<CR>
 '''
 
@@ -122,6 +122,16 @@ repo = 'qpkorr/vim-bufkill'
 
 [[plugins]]
 repo = 'tpope/vim-fugitive'
+
+[[plugins]]
+repo = 'osyo-manga/vim-anzu'
+hook_add = '''
+nmap n <Plug>(anzu-n-with-echo)
+nmap N <Plug>(anzu-N-with-echo)
+nmap * <Plug>(anzu-star-with-echo)
+nmap # <Plug>(anzu-sharp-with-echo)
+nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
+'''
 
 # ----- visual ----- #
 [[plugins]]
@@ -172,7 +182,8 @@ hook_add = '''
         \   'component_function': {
         \      'ale': 'ALEStatus',
         \      'filepath': 'FilePath',
-        \      'gitbranch': 'fugitive#head'
+        \      'gitbranch': 'fugitive#head',
+        \      'anzu': 'anzu#search_status'
         \   },
         \   'component_type': {
         \      'tabs': 'tabsel',
@@ -204,6 +215,9 @@ hook_add = '''
 ## ----- colorscheme ----- ##
 [[plugins]]
 repo = 'freeo/vim-kalisi'
+hook_add = '''
+    autocmd MyAutoCmd VimEnter * nested colorscheme kalisi
+'''
 
 [[plugins]]
 repo = 'tomasr/molokai'
@@ -213,15 +227,12 @@ repo = 'altercation/vim-colors-solarized'
 
 [[plugins]]
 repo = 'kristijanhusak/vim-hybrid-material'
-# hook_add = '''
-#     autocmd MyAutoCmd VimEnter * nested colorscheme hybrid_reverse
-# '''
 
 [[plugins]]
 repo = 'archSeer/colibri.vim'
 
 [[plugins]]
 repo = 'fcpg/vim-fahrenheit'
-hook_add = '''
-    autocmd MyAutoCmd VimEnter * nested colorscheme fahrenheit
-'''
+
+[[plugins]]
+repo = 'skielbasa/vim-material-monokai'
