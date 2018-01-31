@@ -68,8 +68,14 @@ filetype plugin indent on
 "---------
 
 " Key Binding---------
+let mapleader = "\<Space>"
 nnoremap <silent><esc><esc> :nohlsearch<CR>
 imap <C-j> <esc>
+nnoremap <silent> [b :bprevious<CR>
+nnoremap <silent> ]b :bnext<CR>
+nnoremap <silent> [B :bfirst<CR>
+nnoremap <silent> ]B :blast<CR>
+
 "--------------------
 
 " Specify

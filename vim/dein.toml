@@ -93,9 +93,6 @@ hook_add = '''
 repo = 'simeji/winresizer'
 
 [[plugins]]
-repo = 'tomasr/molokai'
-
-[[plugins]]
 repo = 'tyru/open-browser.vim'
 
 [[plugins]]
@@ -131,6 +128,16 @@ nmap N <Plug>(anzu-N-with-echo)
 nmap * <Plug>(anzu-star-with-echo)
 nmap # <Plug>(anzu-sharp-with-echo)
 nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
+'''
+
+[[plugins]]
+repo = 'glidenote/memolist.vim'
+hook_add = '''
+    let g:memolist_path = '~/git/memolist/'
+    nmap <Leader>mn :MemoNew<CR>
+    nmap <Leader>ml :MemoList<CR>
+    nmap <Leader>mg :MemoGrep<CR>
+    nmap <Leader>mf :CtrlP g:memolist_path<CR>
 '''
 
 # ----- visual ----- #
