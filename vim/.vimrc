@@ -8,6 +8,7 @@ augroup MyAutoCmd
 augroup END
 
 let mapleader = "\<Space>"
+autocmd InsertLeave * set nopaste
 " dein settings {{{
 " dein自体の自動インストール
 let s:cache_home = empty($XDG_CACHE_HOME) ? expand('~/.cache') : $XDG_CACHE_HOME

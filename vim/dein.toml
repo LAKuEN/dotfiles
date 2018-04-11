@@ -48,6 +48,8 @@ repo = 'Vimjas/vim-python-pep8-indent'
 repo = 'fatih/vim-go'
 hook_add = '''
     let g:go_fmt_fail_silently = 1
+    " 保存時にgofmtを走らせない: quickfixが開くのを防ぐ為
+    let g:go_fmt_autosave = 0
 '''
 
 [[plugins]]
