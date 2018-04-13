@@ -49,7 +49,18 @@ repo = 'fatih/vim-go'
 hook_add = '''
     let g:go_fmt_fail_silently = 1
     " 保存時にgofmtを走らせない: quickfixが開くのを防ぐ為
+    " ⇛ バッファには開かれている…
     let g:go_fmt_autosave = 0
+
+    let g:go_highlight_build_constraints = 1
+    let g:go_highlight_extra_types = 1
+    let g:go_highlight_fields = 1
+    let g:go_highlight_functions = 1
+    let g:go_highlight_methods = 1
+    let g:go_highlight_operators = 1
+    let g:go_highlight_structs = 1
+    let g:go_highlight_types = 1
+    let g:go_auto_sameids = 1
 '''
 
 [[plugins]]
@@ -63,7 +74,7 @@ hook_add = '''
     endfunction
     let g:ale_linters = {
     \   'python': ['flake8'],
-    \   'go': ['gofmt'],
+    \   'go': ['gofmt', 'go vet', 'golint'],
     \}
     let g:ale_sign_column_always = 1
     let g:ale_sign_error = "!!"
