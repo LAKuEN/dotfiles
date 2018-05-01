@@ -8,7 +8,10 @@ hook_add = '''
 [[plugins]]
 repo = 'Shougo/deoplete.nvim'
 hook_add = '''
-    let g:python3_host_prog = "/usr/local/bin/python3"
+    " for macOS
+    " let g:python3_host_prog = "/usr/bin/python3"
+    " for Ubuntu
+    let g:python3_host_prog = "/usr/bin/python3"
     let g:deoplete#enable_at_startup = 1
     let g:deoplete#auto_complete_delay = 0
     let g:deoplete#auto_complete_start_length = 1
@@ -163,11 +166,10 @@ hook_add = '''
     let g:DevIconsEnableFoldersOpenClose = 1
     let g:DevIconsDefaultFolderDefaultSymbol = ''
     let g:DevIconsDefaultFolderOpenSymbol = ''
-    let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {}
-    let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['html'] = ''
-    let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['css'] = ''
-    let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['md'] = ''
-    let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['txt'] = ''
+    " let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['html'] = ''
+    " let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['css'] = ''
+    " let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['md'] = ''
+    " let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['txt'] = ''
 '''
 
 [[plugins]]
@@ -183,7 +185,7 @@ hook_add = '''
     endfunction
     " set guifont=Ricty\ Regular\ Powerline:h18
     " FIXME このフォントを使っていると隙間ができる
-    set guifont=RictyDiminished\ Nerd\ Font\ Regular:h18
+    " set guifont=RictyDiminished\ Nerd\ Font\ Regular:h18
     let g:lightline = {
         \   'mode_map': {
         \      'c': 'COMMAND',
