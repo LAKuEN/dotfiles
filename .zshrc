@@ -9,7 +9,7 @@
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
-PROMPT="%K{red}%F{white} %n%m %f%k %~
-"
+PROMPT="%K{red}%F{white} %n %m %f%k %~
+  "
 
 # Customize to your needs...
