@@ -82,7 +82,8 @@ hook_add = '''
     let g:ale_sign_column_always = 1
     let g:ale_sign_error = "!!"
     let g:ale_sign_warning = ">>"
-    let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '○ OK']
+    " NeoVimで使うとlightline.vimのレイアウト崩れにつながるので無効化
+    " let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '○ OK']
     highlight clear ALEErrorSign
     highlight clear ALEWarningSign
 '''
@@ -90,7 +91,8 @@ hook_add = '''
 [[plugins]]
 repo = 'mattn/sonictemplate-vim'
 hook_add = '''
-    let g:sonictemplate_vim_template_dir = '$HOME/git/dotfiles/vim/template'
+    " let g:sonictemplate_vim_template_dir = '$HOME/git/dotfiles/vim/template'
+    let g:sonictemplate_vim_template_dir = '$HOME/git/src/gitlab.com/dotfiles/vim/template'
 '''
 
 [[plugins]]
@@ -212,14 +214,15 @@ hook_add = '''
         \      'tabs': 'tabsel',
         \      'close': 'raw' 
         \   },
-        \   'separator': {
-        \      'left': "\ue0b0",
+        " 文字幅がNeoVimとVimで異なるようで、この設定を行うとレイアウトがNeoVimで崩れる
+        "\   'separator': {
+        "\      'left': "\ue0b0",
         "\      'right': "\ue0b2"
-        \   },
-        \   'subseparator': {
+        "\   },
+        "\   'subseparator': {
         "\      'left': "\ue0b1",
         "\      'right': "\ue0b3"
-        \   },
+        "\   },
         \   'tabline': {
         \      'left': [['tabs']],
         \      'right': [['close']]
