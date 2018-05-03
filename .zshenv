@@ -15,5 +15,5 @@ if [ -z $ZSH_ENV_LOADED ]; then
   export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
   export ZSH_ENV_LOADED="1"
 else
-  print ".zshenv の 読み込みをスキップしました \n"
+  # print ".zshenv の 読み込みをスキップしました \n"
 fi

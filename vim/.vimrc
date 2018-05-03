@@ -75,11 +75,10 @@ autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 let g:python_highlight_all = 1
 "----------
 
-" diff----------
+" highlight----------
 hi DiffAdd    ctermfg=white ctermbg=196
 hi DiffChange ctermfg=white ctermbg=240
 hi DiffDelete ctermfg=white ctermbg=240
-hi MatchParen ctermfg=green ctermbg=black
 "----------
 
 " Key Binding---------

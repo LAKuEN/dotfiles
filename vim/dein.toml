@@ -243,6 +243,7 @@ hook_add = '''
 repo = 'freeo/vim-kalisi'
 hook_add = '''
     autocmd MyAutoCmd VimEnter * nested colorscheme kalisi
+    autocmd MyAutoCmd VimEnter * nested hi MatchParen ctermfg=green ctermbg=black
 '''
 
 [[plugins]]
