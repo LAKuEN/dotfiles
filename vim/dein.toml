@@ -92,7 +92,7 @@ hook_add = '''
 repo = 'mattn/sonictemplate-vim'
 hook_add = '''
     " let g:sonictemplate_vim_template_dir = '$HOME/git/dotfiles/vim/template'
-    let g:sonictemplate_vim_template_dir = '$HOME/git/src/gitlab.com/dotfiles/vim/template'
+    let g:sonictemplate_vim_template_dir = '$HOME/repo/dotfiles/vim/template'
 '''
 
 [[plugins]]
@@ -152,7 +152,7 @@ nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
 repo = 'glidenote/memolist.vim'
 hook_add = '''
     " let g:memolist_path = '~/git/memolist/'
-    let g:memolist_path = '~/git/src/gitlab.com/memolist/'
+    let g:memolist_path = '$HOME/repo/memolist/'
     nmap <Leader>mn :MemoNew<CR>
     nmap <Leader>ml :MemoList<CR>
     nmap <Leader>mg :MemoGrep<CR>
@@ -167,8 +167,8 @@ hook_add = '''
     let g:webdevicons_conceal_nerdtree_brackets = 1
     let g:WebDevIconsNerdTreeAfterGlyphPadding = ' '
     let g:DevIconsEnableFoldersOpenClose = 1
-    let g:DevIconsDefaultFolderDefaultSymbol = ''
-    let g:DevIconsDefaultFolderOpenSymbol = ''
+    " let g:DevIconsDefaultFolderDefaultSymbol = ''
+    " let g:DevIconsDefaultFolderOpenSymbol = ''
     " let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['html'] = ''
     " let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['css'] = ''
     " let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['md'] = ''
