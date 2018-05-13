@@ -12,4 +12,5 @@ fi
 PROMPT="%K{red}%F{white} %n %m %f%k %~
   "
 
-# Customize to your needs...
+# zsh起動時にtmux起動
+[[ -z "$TMUX" && ! -z "$PS1" ]] && exec tmux
