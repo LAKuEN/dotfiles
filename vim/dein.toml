@@ -45,6 +45,12 @@ repo = 'zchee/deoplete-jedi'
 depends = ['deoplete.nvim']
 
 [[plugins]]
+repo = 'majutsushi/tagbar'
+hook_add = '''
+    nmap <F8> :TagbarToggle<CR>
+'''
+
+[[plugins]]
 repo = 'Vimjas/vim-python-pep8-indent'
 
 [[plugins]]
