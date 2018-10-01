@@ -13,6 +13,10 @@ autocmd InsertLeave * set nopaste
 " dein自体の自動インストール
 let s:cache_home = empty($XDG_CACHE_HOME) ? expand('~/.cache') : $XDG_CACHE_HOME
 let s:dein_dir = s:cache_home . '/dein'
+
+" XDG base direcory compartible
+let g:dein#cache_directory = s:cache_home . '/dein'
+
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
 if !isdirectory(s:dein_repo_dir)
   call system('git clone https://github.com/Shougo/dein.vim ' . shellescape(s:dein_repo_dir))
@@ -64,6 +68,7 @@ set wildmenu
 set wildmode=list:full
 set virtualedit=block
 filetype plugin indent on
+set inccommand=split
 "---------
 
 " Specify
@@ -90,4 +95,5 @@ nnoremap <silent> [b :bprevious<CR>
 nnoremap <silent> ]b :bnext<CR>
 nnoremap <silent> [B :bfirst<CR>
 nnoremap <silent> ]B :blast<CR>
+nnoremap <C-]> g<C-]>
 "--------------------
