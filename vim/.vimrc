@@ -58,6 +58,10 @@ set softtabstop=4
 set expandtab
 set showmatch
 set backspace=eol,indent,start
+augroup fileTypeIndent
+    autocmd!
+    autocmd BufNewFile,BufRead *.js setlocal tabstop=2 softtabstop=2 shiftwidth=2
+augroup END
 "----------
 
 " Behavior----------

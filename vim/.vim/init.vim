@@ -1,1 +1,0 @@
-/Users/ysk/git/dotfiles/vim/.vimrc

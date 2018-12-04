@@ -36,6 +36,9 @@ hook_add = '''
 depends = ['neosnippet.vim', 'neosnippet-snippets']
 
 [[plugins]]
+repo = 'Shougo/denite.nvim'
+
+[[plugins]]
 repo = 'Shougo/neosnippet.vim'
 
 [[plugins]]
@@ -70,10 +73,8 @@ repo = 'Vimjas/vim-python-pep8-indent'
 [[plugins]]
 repo = 'fatih/vim-go'
 hook_add = '''
+    let g:go_fmt_command = "goimports"
     let g:go_fmt_fail_silently = 1
-    " 保存時にgofmtを走らせない: quickfixが開くのを防ぐ為
-    " ⇛ バッファには開かれている…
-    let g:go_fmt_autosave = 0
 
     let g:go_highlight_build_constraints = 1
     let g:go_highlight_extra_types = 1
@@ -87,6 +88,9 @@ hook_add = '''
 '''
 
 [[plugins]]
+repo = 'mattn/emmet-vim'
+
+[[plugins]]
 repo = 'majutsushi/tagbar'
 
 [[plugins]]
@@ -96,9 +100,14 @@ hook_add = '''
       return ALEGetStatusLine()
     endfunction
     let g:ale_linters = {
+    \   'go': ['go vet', 'gofmt', 'goimports', 'golint'],
+    " \   'javascript': ['eslint'],
     \   'python': ['flake8'],
-    \   'go': ['gofmt', 'go vet', 'golint'],
     \}
+    let g:ale_fixers = {
+    \   'javascript': ['prettier'],
+    \ }
+    let g:ale_fix_on_save = 1
     let g:ale_sign_column_always = 1
     let g:ale_sign_error = "!!"
     let g:ale_sign_warning = ">>"
@@ -125,6 +134,7 @@ hook_add = '''
 repo = 'ctrlpvim/ctrlp.vim'
 hook_add = '''
     let g:ctrlp_cmd = 'CtrlPMRU'
+    let g:ctrlp_use_migemo = 1
 '''
 
 [[plugins]]
