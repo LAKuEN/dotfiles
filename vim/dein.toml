@@ -8,10 +8,10 @@ hook_add = '''
 [[plugins]]
 repo = 'Shougo/deoplete.nvim'
 hook_add = '''
-    " for macOS
-    " let g:python3_host_prog = "/usr/bin/python3"
     " for Ubuntu
-    let g:python3_host_prog = "/usr/bin/python3"
+    " let g:python3_host_prog = "/usr/bin/python3" " for Ubuntu
+    " TODO which python3した結果を環境変数に挿入するようにしたい
+    let g:python3_host_prog = "/usr/local/bin/python3" " for macOS(Homebrew)
     let g:deoplete#enable_at_startup = 1
     let g:deoplete#auto_complete_delay = 0
     let g:deoplete#auto_complete_start_length = 1
