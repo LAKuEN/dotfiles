@@ -96,9 +96,10 @@ repo = 'majutsushi/tagbar'
 [[plugins]]
 repo = 'w0rp/ale'
 hook_add = '''
-    function! ALEStatus()
-      return ALEGetStatusLine()
-    endfunction
+    " deprecated...
+    " function! ALEStatus()
+    "   return ALEGetStatusLine()
+    " endfunction
     let g:ale_linters = {
     \   'go': ['go vet', 'gofmt', 'goimports', 'golint'],
     " \   'javascript': ['eslint'],
@@ -235,7 +236,7 @@ hook_add = '''
         \   },
         \   'colorscheme': 'powerline',
         \   'component_function': {
-        \      'ale': 'ALEStatus',
+        " \      'ale': 'ALEStatus',
         \      'filepath': 'FilePath',
         \      'gitbranch': 'fugitive#head',
         \      'anzu': 'anzu#search_status'
@@ -259,13 +260,32 @@ hook_add = '''
         \   },
         \   'active': {
         \      'left': [['mode', 'paste'], ['readonly', 'filepath', 'modified', 'gitbranch']],
-        \      'right': [['percent', 'lineinfo'], ['ale']],
+        " \      'right': [['percent', 'lineinfo'], ['ale']],
+        \      'right': [['percent', 'lineinfo'], ['linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok']],
         \   },
         \   'inactive': {
         \      'left': [['filepath', 'modified', 'gitbranch']],
         \      'right': [['percent', 'lineinfo']],
         \   },
         \ }
+'''
+
+[[plugins]]
+repo = 'maximbaz/lightline-ale'
+depends = ['lightline.vim', 'ale']
+hook_add = '''
+let g:lightline.component_expand = {
+    \  'linter_checking': 'lightline#ale#checking',
+    \  'linter_warnings': 'lightline#ale#warnings',
+    \  'linter_errors': 'lightline#ale#errors',
+    \  'linter_ok': 'lightline#ale#ok',
+    \ }
+let g:lightline.component_type = {
+    \     'linter_checking': 'left',
+    \     'linter_warnings': 'warning',
+    \     'linter_errors': 'error',
+    \     'linter_ok': 'left',
+    \ }
 '''
 
 ## ----- colorscheme ----- ##

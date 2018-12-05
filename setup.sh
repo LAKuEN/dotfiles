@@ -1,5 +1,6 @@
 #!/bin/bash
 echo 'export XDG_CONFIG_HOME="$HOME/.config"' >> $HOME/.bashrc && source $HOME/.bashrc
+echo 'export XDG_CONFIG_HOME="$HOME/.config"' >> $HOME/.zshrc && source $HOME/.zshrc
 mkdir -p $XDG_CONFIG_HOME
 
 # Vim
