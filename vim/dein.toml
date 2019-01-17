@@ -8,10 +8,9 @@ hook_add = '''
 [[plugins]]
 repo = 'Shougo/deoplete.nvim'
 hook_add = '''
-    " for Ubuntu
-    " let g:python3_host_prog = "/usr/bin/python3" " for Ubuntu
     " TODO which python3した結果を環境変数に挿入するようにしたい
-    let g:python3_host_prog = "/usr/local/bin/python3" " for macOS(Homebrew)
+    let g:python3_host_prog = "/usr/bin/python3" " for Ubuntu
+    " let g:python3_host_prog = "/usr/local/bin/python3" " for macOS(Homebrew)
     let g:deoplete#enable_at_startup = 1
     let g:deoplete#auto_complete_delay = 0
     let g:deoplete#auto_complete_start_length = 1
@@ -116,6 +115,22 @@ hook_add = '''
     " let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '○ OK']
     highlight clear ALEErrorSign
     highlight clear ALEWarningSign
+'''
+
+[[plugins]]
+repo = 'prabirshrestha/async.vim'
+
+[[plugins]]
+repo = 'prabirshrestha/vim-lsp'
+hook_add = '''
+if executable('pyls')
+    " pip install python-language-server
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'pyls',
+        \ 'cmd': {server_info->['pyls']},
+        \ 'whitelist': ['python'],
+        \ })
+endif
 '''
 
 [[plugins]]

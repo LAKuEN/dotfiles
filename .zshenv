@@ -21,3 +21,8 @@ else
 fi
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
+
+# 仮想環境のパス
+export IMGENV="$HOME/pyenv/imgenv/bin/activate"
+export MLENV="$HOME/pyenv/mlenv/bin/activate"
+alias filer='nautilus'
