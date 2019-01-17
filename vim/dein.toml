@@ -6,33 +6,61 @@ hook_add = '''
 
 # ----- tools ----- #
 [[plugins]]
-repo = 'Shougo/deoplete.nvim'
-hook_add = '''
-    " TODO which python3した結果を環境変数に挿入するようにしたい
-    let g:python3_host_prog = "/usr/bin/python3" " for Ubuntu
-    " let g:python3_host_prog = "/usr/local/bin/python3" " for macOS(Homebrew)
-    let g:deoplete#enable_at_startup = 1
-    let g:deoplete#auto_complete_delay = 0
-    let g:deoplete#auto_complete_start_length = 1
-    let g:deoplete#enable_refresh_always = 0
-    " <C-h>, <BS>: close popup and delete backword char.
-    inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
-    inoremap <expr><BS>  deoplete#smart_close_popup()."\<C-h>"
-    " TABでの補完
-    inoremap <silent><expr> <TAB>
-    \ pumvisible() ? "\<C-n>" :
-    \ <SID>check_back_space() ? "\<TAB>" :
-    \ deoplete#mappings#manual_complete()
-    function! s:check_back_space() abort "{{{
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~ '\s'
-    endfunction"}}}
+repo = 'prabirshrestha/async.vim'
 
-    " preview(ウィンドウ分割されて表示されるやつ)を無効化
-    set completeopt-=preview
-    set completeopt+=menuone
+[[plugins]]
+repo = 'prabirshrestha/asyncomplete.vim'
+hook_add = '''
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
 '''
-depends = ['neosnippet.vim', 'neosnippet-snippets']
+
+[[plugins]]
+repo = 'prabirshrestha/asyncomplete-lsp.vim'
+
+[[plugins]]
+repo = 'prabirshrestha/vim-lsp'
+hook_add = '''
+if executable('pyls')
+    " pip install python-language-server
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'pyls',
+        \ 'cmd': {server_info->['pyls']},
+        \ 'whitelist': ['python'],
+        \ })
+endif
+'''
+depends = ['async.vim', 'asyncomplete.vim', 'asyncomplete-lsp.vim']
+
+# [[plugins]]
+# repo = 'Shougo/deoplete.nvim'
+# hook_add = '''
+#     " TODO which python3した結果を環境変数に挿入するようにしたい
+#     let g:python3_host_prog = "/usr/bin/python3" " for Ubuntu
+#     " let g:python3_host_prog = "/usr/local/bin/python3" " for macOS(Homebrew)
+#     let g:deoplete#enable_at_startup = 1
+#     let g:deoplete#auto_complete_delay = 0
+#     let g:deoplete#auto_complete_start_length = 1
+#     let g:deoplete#enable_refresh_always = 0
+#     " <C-h>, <BS>: close popup and delete backword char.
+#     inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
+#     inoremap <expr><BS>  deoplete#smart_close_popup()."\<C-h>"
+#     " TABでの補完
+#     inoremap <silent><expr> <TAB>
+#     \ pumvisible() ? "\<C-n>" :
+#     \ <SID>check_back_space() ? "\<TAB>" :
+#     \ deoplete#mappings#manual_complete()
+#     function! s:check_back_space() abort "{{{
+#     let col = col('.') - 1
+#     return !col || getline('.')[col - 1]  =~ '\s'
+#     endfunction"}}}
+# 
+#     " preview(ウィンドウ分割されて表示されるやつ)を無効化
+#     set completeopt-=preview
+#     set completeopt+=menuone
+# '''
+# depends = ['neosnippet.vim', 'neosnippet-snippets']
 
 [[plugins]]
 repo = 'Shougo/denite.nvim'
@@ -115,22 +143,6 @@ hook_add = '''
     " let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '○ OK']
     highlight clear ALEErrorSign
     highlight clear ALEWarningSign
-'''
-
-[[plugins]]
-repo = 'prabirshrestha/async.vim'
-
-[[plugins]]
-repo = 'prabirshrestha/vim-lsp'
-hook_add = '''
-if executable('pyls')
-    " pip install python-language-server
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'pyls',
-        \ 'cmd': {server_info->['pyls']},
-        \ 'whitelist': ['python'],
-        \ })
-endif
 '''
 
 [[plugins]]
