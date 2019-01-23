@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 """module description
 """
-
-
 import argparse
 
 
