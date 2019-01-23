@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""{{module description}}
+"""module description
 """
 
 
@@ -7,8 +7,7 @@ import argparse
 
 
 def main():
-    {{_cursor_}}
-    pass
+    {{_cursor_}}pass
 
 
 if __name__ == '__main__':
