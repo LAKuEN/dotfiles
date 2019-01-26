@@ -21,6 +21,9 @@ curl -O https://github.com/miiton/Cica/releases/download/v4.1.1/Cica-v4.1.1.zip
 unzip Cica-v4.1.1.zip
 sudo cp Cica-*.ttf /usr/local/share/fonts
 fc-list | grep Cica
+## Gnome-terminalにも反映
+UUID=$(gsettings get org.gnome.Terminal.ProfilesList default | tr -d \')
+gsettings set org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:${UUID}/ font "Cica Bold 11"
 rm Cica-v4.1.1.zip Cica-*.ttf
 
 sudo ln -nfs $HOME/repo/dotfiles/.tmux.conf $HOME/.tmux.conf
