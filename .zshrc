@@ -14,3 +14,5 @@ PROMPT="%K{red}%F{white} %n %m %f%k %~
 
 # zsh起動時にtmux起動
 [[ -z "$TMUX" && ! -z "$PS1" ]] && exec tmux
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_CONFIG_HOME="$HOME/.config"

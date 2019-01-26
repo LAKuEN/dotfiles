@@ -1,11 +1,22 @@
 #!/bin/bash
-shopt -s expand_aliases
-source ubuntu_setup.sh
 
-echo 'export XDG_CONFIG_HOME="$HOME/.config"' | sudo tee -a $HOME/.bashrc
-echo 'export XDG_CONFIG_HOME="$HOME/.config"' | sudo tee -a $HOME/.zshrc
-source $HOME/.bashrc
-source $HOME/.zshrc
+if [ $(echo $SHELL) = "/usr/bin/bash" ]; then
+    sudo ln -nfs $HOME/repo/dotfiles/.bashrc $HOME/.bashrc
+    echo 'export XDG_CONFIG_HOME="$HOME/.config"' | sudo tee -a $HOME/.bashrc
+    shopt -s expand_aliases
+    source $HOME/.bashrc
+fi
+
+if [ $(echo $SHELL) = "/usr/bin/zsh" ]; then
+    sudo ln -nfs $HOME/repo/dotfiles/.zshrc $HOME/.zshrc
+    sudo ln -nfs $HOME/repo/dotfiles/.zshenv $HOME/.zshenv
+    sudo ln -nfs $HOME/repo/dotfiles/.zpreztorc $HOME/.zpreztorc
+    echo 'export XDG_CONFIG_HOME="$HOME/.config"' | sudo tee -a $HOME/.zshrc
+    source $HOME/.zshrc
+    source $HOME/.zshenv
+    source $HOME/.zpreztorc
+fi
+sudo ln -nfs $HOME/repo/dotfiles/.tmux.conf $HOME/.tmux.conf
 mkdir -p $XDG_CONFIG_HOME
 mkdir -p $XDG_CONFIG_HOME/nvim
 
@@ -14,5 +25,4 @@ sudo ln -nfs $HOME/repo/dotfiles/vim/.vim $HOME/.vim
 sudo ln -nfs $HOME/repo/dotfiles/vim/.vimrc $HOME/.vimrc
 
 # NeoVim
-# sudo ln -nfs $HOME/repo/dotfiles/vim/.vim $XDG_CONFIG_HOME/nvim
 sudo ln -nfs $HOME/repo/dotfiles/vim/.vimrc $XDG_CONFIG_HOME/nvim/init.vim
