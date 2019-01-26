@@ -16,6 +16,13 @@ if [ $(echo $SHELL) = "/usr/bin/zsh" ]; then
     source $HOME/.zshenv
     source $HOME/.zpreztorc
 fi
+# 絵文字対応のフォント突っ込む
+curl -O https://github.com/miiton/Cica/releases/download/v4.1.1/Cica-v4.1.1.zip
+unzip Cica-v4.1.1.zip
+sudo cp Cica-*.ttf /usr/local/share/fonts
+fc-list | grep Cica
+rm Cica-v4.1.1.zip Cica-*.ttf
+
 sudo ln -nfs $HOME/repo/dotfiles/.tmux.conf $HOME/.tmux.conf
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 tmux source ~/.tmux.conf
