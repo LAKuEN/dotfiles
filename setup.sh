@@ -29,6 +29,7 @@ rm Cica-v4.1.1.zip Cica-*.ttf
 sudo ln -nfs $HOME/repo/dotfiles/.tmux.conf $HOME/.tmux.conf
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 tmux source ~/.tmux.conf
+# TODO tmuxのプラグインを入れるために、<C-j>Iをtmux上で押下
 
 git config --global core.editor nvim
 
