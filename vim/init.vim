@@ -1,1 +1,1 @@
-.vimrc
+/home/lakuen/repo/dotfiles/vim/.vimrc

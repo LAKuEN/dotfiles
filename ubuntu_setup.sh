@@ -1,0 +1,38 @@
+# CapsLock to Ctrl
+echo 'XKBOPTIONS="ctrl:nocaps"' | sudo tee -a /etc/default/keyboard &> /dev/null
+# translate directory names in $HOME in English
+LANG=C xdg-user-dirs-update --force
+
+# install
+sudo add-apt-repository ppa:neovim-ppa/stable -y
+sudo apt update
+sudo apt install -y curl
+
+curl -L -O https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo dpkg -i google-chrome-stable_current_amd64.deb
+rm google-chrome-stable_current_amd64.deb
+
+# curl https://build.opensuse.org/projects/home:manuelschneid3r/public_key | sudo apt-key add -
+curl -L -O https://download.opensuse.org/repositories/home:manuelschneid3r/xUbuntu_18.04/Release.key
+sudo apt-key add - < Release.key
+# sudo sh -c "echo 'deb http://download.opensuse.org/repositories/home:/manuelschneid3r/xUbuntu_18.04/ /' > /etc/apt/sources.list.d/home:manuelschneid3r.list"
+sudo apt-get update
+sudo apt install -y albert
+rm Release.key
+
+sudo apt update
+sudo apt install -y asunder chrome-gnome-shell clamav-base clamav-freshclam dkms exfat-fuse exfat-utils fcitx-mozc ffmpeg fonts-ricty-diminished gimp git gnome-shell gnome-tweak-tool gnome-tweaks golang gparted imagemagick jq neovim nodejs octave python3 python3-pip solaar tig tlp tlp-rdw tmux translate-shell tree vim virtualbox zsh
+
+sudo -H pip3 install pynvim
+
+mkdir $HOME/repo && cd $HOME/repo
+cd $HOME/repo
+git clone https://github.com/LAKuEN/dotfiles.git
+shopt -s expand_aliases
+source setup.sh
+
+sudo shutdown -r now
+# set keybinding in mozc with gui
+# * Alt: IME ON/OFF
+# * Ctrl+Alt+h,l: move current window
+
