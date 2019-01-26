@@ -1,8 +1,5 @@
-#!/bin/bash
-
 if [ $(echo $SHELL) = "/usr/bin/bash" ]; then
     sudo ln -nfs $HOME/repo/dotfiles/.bashrc $HOME/.bashrc
-    echo 'export XDG_CONFIG_HOME="$HOME/.config"' | sudo tee -a $HOME/.bashrc
     shopt -s expand_aliases
     source $HOME/.bashrc
 fi
@@ -11,7 +8,6 @@ if [ $(echo $SHELL) = "/usr/bin/zsh" ]; then
     sudo ln -nfs $HOME/repo/dotfiles/.zshrc $HOME/.zshrc
     sudo ln -nfs $HOME/repo/dotfiles/.zshenv $HOME/.zshenv
     sudo ln -nfs $HOME/repo/dotfiles/.zpreztorc $HOME/.zpreztorc
-    echo 'export XDG_CONFIG_HOME="$HOME/.config"' | sudo tee -a $HOME/.zshrc
     source $HOME/.zshrc
     source $HOME/.zshenv
     source $HOME/.zpreztorc

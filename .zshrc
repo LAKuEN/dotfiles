@@ -9,10 +9,12 @@
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
-PROMPT="%K{red}%F{white} %n %m %f%k %~
-  "
+export XDG_CONFIG_HOME="$HOME/.config"
+
+# 
+# PROMPT="%K{red}%F{white} %n\ue62b %m %f%k %~
+PROMPT="%K{red}%F{white} %n@%m %f%k %~
+> "
 
 # zsh起動時にtmux起動
 [[ -z "$TMUX" && ! -z "$PS1" ]] && exec tmux
-export XDG_CONFIG_HOME="$HOME/.config"
-export XDG_CONFIG_HOME="$HOME/.config"
