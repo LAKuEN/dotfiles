@@ -17,6 +17,9 @@ if [ $(echo $SHELL) = "/usr/bin/zsh" ]; then
     source $HOME/.zpreztorc
 fi
 sudo ln -nfs $HOME/repo/dotfiles/.tmux.conf $HOME/.tmux.conf
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+tmux source ~/.tmux.conf
+
 git config --global core.editor nvim
 
 mkdir -p $XDG_CONFIG_HOME
