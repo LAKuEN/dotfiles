@@ -15,7 +15,7 @@ export MLENV=$HOME/pyenv/mlenv/bin/activate
 export webenv=$HOME/pyenv/webenv/bin/activate
 
 # Prompt周りの設定
-PROMPT='%K{blue}%F{white}  %K{white}%F{blue}%n %K{blue}%F{white}%1~ %k%F{blue}
+PROMPT='%K{blue}%F{white}   %K{white }%F{blue} %n %K{blue}%F{white} %1~ %k%F{blue}
 %k%f '
 autoload -Uz vcs_info
 setopt prompt_subst
