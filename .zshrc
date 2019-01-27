@@ -14,8 +14,18 @@ export IMGENV=$HOME/pyenv/imgenv/bin/activate
 export MLENV=$HOME/pyenv/mlenv/bin/activate
 export webenv=$HOME/pyenv/webenv/bin/activate
 
-PROMPT='%K{blue}%F{white}  %K{white}%F{blue}%n %K{blue}%F{white}%2~ %k%F{blue}
+# Prompt周りの設定
+PROMPT='%K{blue}%F{white}  %K{white}%F{blue}%n %K{blue}%F{white}%1~ %k%F{blue}
 %k%f'
+autoload -Uz vcs_info
+setopt prompt_subst
+zstyle ':vcs_info:git:*' check-for-changes true
+zstyle ':vcs_info:git:*' stagedstr "%F{yellow}!"
+zstyle ':vcs_info:git:*' unstagedstr "%F{red}+"
+zstyle ':vcs_info:*' formats "%F{green}%c%u[%b]%f"
+zstyle ':vcs_info:*' actionformats '[%b|%a]'
+precmd () { vcs_info }
+RPROMPT=""%F{white}'${vcs_info_msg_0_}'
 
 # zsh起動時にtmux起動
 [[ -z "$TMUX" && ! -z "$PS1" ]] && exec tmux
