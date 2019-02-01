@@ -12,7 +12,7 @@ fi
 export XDG_CONFIG_HOME="$HOME/.config"
 export IMGENV=$HOME/pyenv/imgenv/bin/activate
 export MLENV=$HOME/pyenv/mlenv/bin/activate
-export webenv=$HOME/pyenv/webenv/bin/activate
+export WEBENV=$HOME/pyenv/webenv/bin/activate
 
 # Prompt周りの設定
 PROMPT='%K{blue}%F{white}   %K{white }%F{blue} %n %K{blue}%F{white} %1~ %k%F{blue}
