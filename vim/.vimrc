@@ -87,6 +87,7 @@ let g:python_highlight_all = 1
 hi DiffAdd    ctermfg=white ctermbg=196
 hi DiffChange ctermfg=white ctermbg=240
 hi DiffDelete ctermfg=white ctermbg=240
+set cursorline
 "----------
 
 " Key Binding---------
