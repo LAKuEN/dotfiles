@@ -35,6 +35,10 @@ cd $HOME/repo
 git clone https://github.com/LAKuEN/dotfiles.git
 shopt -s expand_aliases
 
+# golang
+curl -L -O https://dl.google.com/go/go1.11.5.linux-amd64.tar.gz
+sudo tar -C /usr/local -xzf go1.11.5.linux-amd64.tar.gz
+
 source setup.sh
 
 # set keybinding in mozc with gui
