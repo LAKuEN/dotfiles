@@ -22,6 +22,15 @@ repo = 'prabirshrestha/asyncomplete-lsp.vim'
 [[plugins]]
 repo = 'prabirshrestha/vim-lsp'
 hook_add = '''
+" https://qiita.com/gorilla0513/items/783836797ff84a3a4753 よりコピペ
+if executable('go-langserver')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'go-langserver',
+        \ 'cmd': {server_info->['go-langserver', '-mode', 'stdio']},
+        \ 'whitelist': ['go'],
+        \ })
+endif
+
 " https://kashewnuts.github.io/2019/01/28/move_from_jedivim_to_vimlsp.html よりコピペ
 if executable('pyls')
     " pip install python-language-server
@@ -35,6 +44,7 @@ if executable('pyls')
         \})
     autocmd FileType python call s:configure_lsp()
 endif
+
 function! s:configure_lsp() abort
   setlocal omnifunc=lsp#complete   " オムニ補完を有効化
   " LSP用にマッピング
@@ -120,6 +130,7 @@ repo = 'Vimjas/vim-python-pep8-indent'
 [[plugins]]
 repo = 'fatih/vim-go'
 hook_add = '''
+    let g:go_bin_path = "$HOME/repo/go/bin"
     let g:go_fmt_command = "goimports"
     let g:go_fmt_fail_silently = 1
 
