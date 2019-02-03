@@ -13,7 +13,7 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export IMGENV=$HOME/pyenv/imgenv/bin/activate
 export MLENV=$HOME/pyenv/mlenv/bin/activate
 export WEBENV=$HOME/pyenv/webenv/bin/activate
-export GOPATH=$PATH/repo/go/bin
+export GOPATH=$HOME/repo/go
 export PATH=$PATH:/usr/local/go/bin:$GOPATH
 
 # Prompt周りの設定
