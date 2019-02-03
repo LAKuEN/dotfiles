@@ -13,8 +13,8 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export IMGENV=$HOME/pyenv/imgenv/bin/activate
 export MLENV=$HOME/pyenv/mlenv/bin/activate
 export WEBENV=$HOME/pyenv/webenv/bin/activate
-export PATH=$PATH:/usr/local/go/bin
-export GOPATH=$HOME/repo/golang
+export GOPATH=$PATH/repo/go/bin
+export PATH=$PATH:/usr/local/go/bin:$GOPATH
 
 # Prompt周りの設定
 PROMPT='%K{blue}%F{white}   %K{white }%F{blue} %n %K{blue}%F{white} %1~ %k%F{blue}
