@@ -39,6 +39,16 @@ shopt -s expand_aliases
 curl -L -O https://dl.google.com/go/go1.11.5.linux-amd64.tar.gz
 sudo tar -C /usr/local -xzf go1.11.5.linux-amd64.tar.gz
 
+# 絵文字対応のフォント突っ込む
+curl -O https://github.com/miiton/Cica/releases/download/v4.1.1/Cica-v4.1.1.zip
+unzip Cica-v4.1.1.zip
+sudo cp Cica-*.ttf /usr/local/share/fonts
+fc-list | grep Cica
+## Gnome-terminalにも反映
+UUID=$(gsettings get org.gnome.Terminal.ProfilesList default | tr -d \')
+gsettings set org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:${UUID}/ font "Cica Bold 10"
+rm Cica-v4.1.1.zip Cica-*.ttf
+
 source setup.sh
 
 # set keybinding in mozc with gui

@@ -12,20 +12,11 @@ if [ $(echo $SHELL) = "/usr/bin/zsh" ]; then
     source $HOME/.zshenv
     source $HOME/.zpreztorc
 fi
-# 絵文字対応のフォント突っ込む
-curl -O https://github.com/miiton/Cica/releases/download/v4.1.1/Cica-v4.1.1.zip
-unzip Cica-v4.1.1.zip
-sudo cp Cica-*.ttf /usr/local/share/fonts
-fc-list | grep Cica
-## Gnome-terminalにも反映
-UUID=$(gsettings get org.gnome.Terminal.ProfilesList default | tr -d \')
-gsettings set org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:${UUID}/ font "Cica Bold 11"
-rm Cica-v4.1.1.zip Cica-*.ttf
 
 sudo ln -nfs $HOME/repo/dotfiles/.tmux.conf $HOME/.tmux.conf
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 tmux source ~/.tmux.conf
-# TODO tmuxのプラグインを入れるために、<C-j>Iをtmux上で押下
+# このスクリプトの実行後にtmuxのプラグインを入れるために、<C-j>Iをtmux上で押下
 
 git config --global core.editor nvim
 
