@@ -19,7 +19,7 @@ tmux source ~/.tmux.conf
 # このスクリプトの実行後にtmuxのプラグインを入れるために、<C-j>Iをtmux上で押下
 
 git config --global core.editor nvim
-git config --local core.quotepath false
+git config --global core.quotepath false
 
 mkdir -p $XDG_CONFIG_HOME
 mkdir -p $XDG_CONFIG_HOME/nvim
