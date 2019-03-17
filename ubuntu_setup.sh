@@ -13,8 +13,8 @@ curl -L -O https://dl.google.com/linux/direct/google-chrome-stable_current_amd64
 sudo dpkg -i google-chrome-stable_current_amd64.deb
 rm google-chrome-stable_current_amd64.deb
 
-sudo sh -c "echo 'deb http://download.opensuse.org/repositories/home:/manuelschneid3r/xUbuntu_18.04/ /' > /etc/apt/sources.list.d/home:manuelschneid3r.list"
-sudo apt-get update
+sudo sh -c "curl https://build.opensuse.org/projects/home:manuelschneid3r/public_key | sudo apt-key add -"
+sudo apt update
 sudo apt install -y albert
 
 sudo apt update
@@ -25,7 +25,7 @@ sudo apt install network-manager-openconnect-gnome
 sudo systemctl daemon-reload
 # https://cloudpack.media/14148 のUbuntuの手順での証明書の導入
 
-chsh -s $(where zsh)
+chsh -s $(which zsh)
 
 im-config -n fcitx
 sudo -H pip3 install pynvim
@@ -53,4 +53,5 @@ source setup.sh
 
 # set keybinding in mozc with gui
 # * Alt: IME ON/OFF
+# set keybinding in setting
 # * Ctrl+Alt+h,l: move current window

@@ -33,9 +33,6 @@ repo = 'natebosch/vim-lsc'
 [[plugins]]
 repo = 'prabirshrestha/vim-lsp'
 hook_add = '''
-let g:lsp_log_verbose = 1  " デバッグ用ログを出力
-let g:lsp_log_file = expand('~/.cache/tmp/vim-lsp.log')  " ログ出力のPATHを設定
-
 augroup MyLsp
     autocmd!
     " goplsだと、大文字始まりで文字列を2文字入力したときに補完ダイアログが閉じてしまう&大文字1文字を入力した後に補完候補を選択すると、入力した文字が消えてしまう問題が起こる
