@@ -5,6 +5,7 @@ LANG=C xdg-user-dirs-update --force
 
 # install
 sudo add-apt-repository ppa:neovim-ppa/stable -y
+sudo add-apt-repository ppa:teejee2008/ppa -y
 sudo apt update
 sudo apt install -y curl
 
@@ -17,8 +18,7 @@ sudo apt-get update
 sudo apt install -y albert
 
 sudo apt update
-sudo apt install -y asunder chrome-gnome-shell clamav-base clamav-freshclam dkms exfat-fuse exfat-utils fcitx-mozc ffmpeg fonts-ricty-diminished gimp git gnome-shell gnome-sushi gnome-tweak-tool gnome-tweaks golang gparted gucharmahp imagemagick jq neovim nodejs octave python3 python3-pip python3-venv solaar tig tlp tlp-rdw tmux translate-shell tree vim virtualbox zsh
-
+sudo apt install -y asunder chrome-gnome-shell clamav-base clamav-freshclam davfs2 dkms exfat-fuse exfat-utils fcitx-mozc ffmpeg fonts-ricty-diminished gimp git gnome-shell gnome-sushi gnome-tweak-tool gnome-tweaks golang gparted gucharmahp imagemagick jq neovim nodejs octave python3 python3-pip python3-venv solaar tig timeshift tlp tlp-rdw tmux translate-shell tree vim virtualbox zsh
 # ネットワーク接続系
 # VPN
 sudo apt install network-manager-openconnect-gnome

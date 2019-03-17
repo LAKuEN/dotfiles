@@ -1,10 +1,13 @@
 [[plugins]]
 repo = 'Shougo/dein.vim'
 hook_add = '''
-    let g:dein#enable_notification = 1
+let g:dein#enable_notification = 1
 '''
 
 # ----- tools ----- #
+[[plugins]]
+repo = 'mattn/vim-sl'
+
 [[plugins]]
 repo = 'prabirshrestha/async.vim'
 
@@ -13,116 +16,126 @@ repo = 'prabirshrestha/asyncomplete.vim'
 hook_add = '''
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
+"inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
+let g:asyncomplete_remove_duplicates = 1
+let g:asyncomplete_smart_completion = 1
+let g:asyncomplete_auto_popup = 1
+
+autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 '''
 
 [[plugins]]
 repo = 'prabirshrestha/asyncomplete-lsp.vim'
 
 [[plugins]]
-repo = 'prabirshrestha/vim-lsp'
-hook_add = '''
-" https://qiita.com/gorilla0513/items/783836797ff84a3a4753 よりコピペ
-if executable('go-langserver')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'go-langserver',
-        \ 'cmd': {server_info->['go-langserver', '-mode', 'stdio']},
-        \ 'whitelist': ['go'],
-        \ })
-endif
-
-" https://kashewnuts.github.io/2019/01/28/move_from_jedivim_to_vimlsp.html よりコピペ
-if executable('pyls')
-    " pip install python-language-server
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'pyls',
-        \ 'cmd': {server_info->['pyls']},
-        \ 'whitelist': ['python'],
-        \ 'workspace_config': {'pyls': {'plugins': {
-        \   'pycodestyle': {'enabled': v:false},
-        \   'jedi_definition': {'follow_imports': v:true, 'follow_builtin_imports': v:true},}}}
-        \})
-    autocmd FileType python call s:configure_lsp()
-endif
-
-function! s:configure_lsp() abort
-  setlocal omnifunc=lsp#complete   " オムニ補完を有効化
-  " LSP用にマッピング
-  nnoremap <buffer> <C-]> :<C-u>LspDefinition<CR>
-  nnoremap <buffer> gd :<C-u>LspDefinition<CR>
-  nnoremap <buffer> gD :<C-u>LspReferences<CR>
-  nnoremap <buffer> gs :<C-u>LspDocumentSymbol<CR>
-  nnoremap <buffer> gS :<C-u>LspWorkspaceSymbol<CR>
-  nnoremap <buffer> gQ :<C-u>LspDocumentFormat<CR>
-  vnoremap <buffer> gQ :LspDocumentRangeFormat<CR>
-  nnoremap <buffer> K :<C-u>LspHover<CR>
-  nnoremap <buffer> <F1> :<C-u>LspImplementation<CR>
-  nnoremap <buffer> <F2> :<C-u>LspRename<CR>
-endfunction
-let g:lsp_diagnostics_enabled = 0  " 警告やエラーの表示はALEに任せるのでOFFにする
-'''
-depends = ['async.vim', 'asyncomplete.vim', 'asyncomplete-lsp.vim']
+repo = 'natebosch/vim-lsc'
 
 [[plugins]]
-repo = 'Shougo/deoplete.nvim'
+repo = 'prabirshrestha/vim-lsp'
 hook_add = '''
-    " TODO which python3した結果を環境変数に挿入するようにしたい
-    let g:python3_host_prog = "/usr/bin/python3" " for Ubuntu
-    " let g:python3_host_prog = "/usr/local/bin/python3" " for macOS(Homebrew)
-    let g:deoplete#enable_at_startup = 1
-    let g:deoplete#auto_complete_delay = 0
-    let g:deoplete#auto_complete_start_length = 1
-    let g:deoplete#enable_refresh_always = 0
-    " <C-h>, <BS>: close popup and delete backword char.
-    inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
-    inoremap <expr><BS>  deoplete#smart_close_popup()."\<C-h>"
-    " TABでの補完
-    inoremap <silent><expr> <TAB>
-    \ pumvisible() ? "\<C-n>" :
-    \ <SID>check_back_space() ? "\<TAB>" :
-    \ deoplete#mappings#manual_complete()
-    function! s:check_back_space() abort "{{{
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~ '\s'
-    endfunction"}}}
+let g:lsp_log_verbose = 1  " デバッグ用ログを出力
+let g:lsp_log_file = expand('~/.cache/tmp/vim-lsp.log')  " ログ出力のPATHを設定
 
-    " preview(ウィンドウ分割されて表示されるやつ)を無効化
-    set completeopt-=preview
-    set completeopt+=menuone
+augroup MyLsp
+    autocmd!
+    " goplsだと、大文字始まりで文字列を2文字入力したときに補完ダイアログが閉じてしまう&大文字1文字を入力した後に補完候補を選択すると、入力した文字が消えてしまう問題が起こる
+    if executable('bingo')
+        au User lsp_setup call lsp#register_server({
+            \ 'name': 'gopls',
+            \ 'cmd': {server_info->['bingo', '-mode', 'stdio']},
+            \ 'whitelist': ['go'],
+            \ })
+        autocmd FileType go call s:configure_lsp()
+    endif
+
+    " https://kashewnuts.github.io/2019/01/28/move_from_jedivim_to_vimlsp.html よりコピペ
+    if executable('pyls')
+        " pip install python-language-server
+        au User lsp_setup call lsp#register_server({
+            \ 'name': 'pyls',
+            \ 'cmd': {server_info->['pyls']},
+            \ 'whitelist': ['python'],
+            \ 'workspace_config': {'pyls': {'plugins': {
+            \   'pycodestyle': {'enabled': v:false},
+            \   'jedi_definition': {'follow_imports': v:true, 'follow_builtin_imports': v:true},}}}
+            \})
+        autocmd FileType python call s:configure_lsp()
+    endif
+augroup END
+
+function! s:configure_lsp() abort
+    setlocal omnifunc=lsp#complete   " オムニ補完を有効化
+    " LSP用にマッピング
+    nnoremap <buffer> <C-]> :<C-u>LspDefinition<CR>
+    nnoremap <buffer> gd :<C-u>LspDefinition<CR>
+    nnoremap <buffer> gD :<C-u>LspReferences<CR>
+    nnoremap <buffer> gs :<C-u>LspDocumentSymbol<CR>
+    nnoremap <buffer> gS :<C-u>LspWorkspaceSymbol<CR>
+    nnoremap <buffer> gQ :<C-u>LspDocumentFormat<CR>
+    vnoremap <buffer> gQ :LspDocumentRangeFormat<CR>
+    nnoremap <buffer> K :<C-u>LspHover<CR>
+    nnoremap <buffer> <F1> :<C-u>LspImplementation<CR>
+    nnoremap <buffer> <F2> :<C-u>LspRename<CR>
+endfunction
+" let g:lsp_diagnostics_enabled = 0  " 警告やエラーの表示はALEに任せるのでOFFにする
+let g:lsp_async_completion = 1
 '''
-depends = ['neosnippet.vim', 'neosnippet-snippets']
+depends = ['async.vim', 'asyncomplete.vim', 'asyncomplete-lsp.vim', 'vim-lsc']
+
+# [[plugins]]
+# repo = 'Shougo/deoplete.nvim'
+# hook_add = '''
+# " TODO which python3した結果を環境変数に挿入するようにしたい
+# let g:python3_host_prog = "/usr/bin/python3" " for Ubuntu
+# " let g:python3_host_prog = "/usr/local/bin/python3" " for macOS(Homebrew)
+# let g:deoplete#enable_at_startup = 1
+# let g:deoplete#auto_complete_delay = 0
+# let g:deoplete#auto_complete_start_length = 1
+# let g:deoplete#enable_refresh_always = 0
+# " <C-h>, <BS>: close popup and delete backword char.
+# inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
+# inoremap <expr><BS>  deoplete#smart_close_popup()."\<C-h>"
+# " TABでの補完
+# inoremap <silent><expr> <TAB>
+# \ pumvisible() ? "\<C-n>" :
+# \ <SID>check_back_space() ? "\<TAB>" :
+# \ deoplete#mappings#manual_complete()
+# function! s:check_back_space() abort "{{{
+# let col = col('.') - 1
+# return !col || getline('.')[col - 1]  =~ '\s'
+# endfunction"}}}
+# 
+# " preview(ウィンドウ分割されて表示されるやつ)を無効化
+# set completeopt-=preview
+# set completeopt+=menuone
+# '''
+# depends = ['neosnippet.vim', 'neosnippet-snippets']
 
 [[plugins]]
 repo = 'Shougo/denite.nvim'
 
-[[plugins]]
-repo = 'Shougo/neosnippet.vim'
-
-[[plugins]]
-repo = 'Shougo/neosnippet-snippets'
+# [[plugins]]
+# repo = 'Shougo/neosnippet.vim'
 # 
-[[plugins]]
-repo = 'davidhalter/jedi-vim'
-hook_add = '''
-    let g:jedi#show_call_signatures = "2"
-    let g:jedi#goto_command = "<leader>d"
-    let g:jedi#goto_assignments_command = "<leader>g"
-    let g:jedi#goto_definitions_command = ""
-    let g:jedi#documentation_command = "K"
-    let g:jedi#usages_command = "<leader>n"
-    let g:jedi#completions_command = "<C-Space>"
-    let g:jedi#rename_command = "<leader>r"
-'''
+# [[plugins]]
+# repo = 'Shougo/neosnippet-snippets'
 
-[[plugins]]
-repo = 'zchee/deoplete-jedi'
-depends = ['deoplete.nvim', 'jedi-vim']
+# [[plugins]]
+# repo = 'davidhalter/jedi-vim'
+# hook_add = '''
+# let g:jedi#show_call_signatures = "2"
+# let g:jedi#goto_command = "<leader>d"
+# let g:jedi#goto_assignments_command = "<leader>g"
+# let g:jedi#goto_definitions_command = ""
+# let g:jedi#documentation_command = "K"
+# let g:jedi#usages_command = "<leader>n"
+# let g:jedi#completions_command = "<C-Space>"
+# let g:jedi#rename_command = "<leader>r"
+# '''
 
-[[plugins]]
-repo = 'majutsushi/tagbar'
-hook_add = '''
-    nmap <F8> :TagbarToggle<CR>
-'''
+# [[plugins]]
+# repo = 'zchee/deoplete-jedi'
+# depends = ['deoplete.nvim', 'jedi-vim']
 
 [[plugins]]
 repo = 'Vimjas/vim-python-pep8-indent'
@@ -130,69 +143,62 @@ repo = 'Vimjas/vim-python-pep8-indent'
 [[plugins]]
 repo = 'fatih/vim-go'
 hook_add = '''
-    let g:go_bin_path = "/home/lakuen/repo/go/bin"
-    let g:go_fmt_command = "goimports"
-    let g:go_fmt_fail_silently = 1
+let g:go_bin_path = "$GOPATH/bin"
+let g:go_fmt_command = "goimports"
+let g:go_fmt_fail_silently = 1
 
-    let g:go_highlight_build_constraints = 1
-    let g:go_highlight_extra_types = 1
-    let g:go_highlight_fields = 1
-    let g:go_highlight_functions = 1
-    let g:go_highlight_methods = 1
-    let g:go_highlight_operators = 1
-    let g:go_highlight_structs = 1
-    let g:go_highlight_types = 1
-    let g:go_auto_sameids = 1
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_types = 1
+let g:go_auto_sameids = 1
+
+  let g:go_def_mapping_enabled = 0
+  let g:go_doc_keywordprg_enabled = 0
 '''
 
 [[plugins]]
 repo = 'mattn/emmet-vim'
 
 [[plugins]]
-repo = 'majutsushi/tagbar'
-
-[[plugins]]
 repo = 'w0rp/ale'
 hook_add = '''
-    " deprecated...
-    " function! ALEStatus()
-    "   return ALEGetStatusLine()
-    " endfunction
-    let g:ale_linters = {
-    \   'go': ['go vet', 'gofmt', 'goimports', 'golint'],
-    " \   'javascript': ['eslint'],
-    \   'python': ['flake8'],
-    \}
-    let g:ale_fixers = {
-    \   'javascript': ['prettier'],
-    \ }
-    let g:ale_fix_on_save = 1
-    let g:ale_sign_column_always = 1
-    let g:ale_sign_error = "!!"
-    let g:ale_sign_warning = ">>"
-    " NeoVimで使うとlightline.vimのレイアウト崩れにつながるので無効化
-    " let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '○ OK']
-    highlight clear ALEErrorSign
-    highlight clear ALEWarningSign
+let g:ale_linters = {
+\   'go': ['go vet', 'gofmt', 'goimports', 'golint'],
+" \   'javascript': ['eslint'],
+\   'python': ['flake8'],
+\}
+let g:ale_fixers = {
+\   'javascript': ['prettier'],
+\ }
+let g:ale_fix_on_save = 1
+let g:ale_sign_column_always = 1
+let g:ale_sign_error = "!!"
+let g:ale_sign_warning = ">>"
+highlight clear ALEErrorSign
+highlight clear ALEWarningSign
 '''
 
 [[plugins]]
 repo = 'mattn/sonictemplate-vim'
 hook_add = '''
-    let g:sonictemplate_vim_template_dir = '$HOME/repo/dotfiles/vim/template'
+let g:sonictemplate_vim_template_dir = '$HOME/repo/dotfiles/vim/template'
 '''
 
 [[plugins]]
 repo = 'aklt/plantuml-syntax'
 hook_add = '''
-    let g:plantuml_executable_script = '$HOME/.plantuml'
+let g:plantuml_executable_script = '$HOME/.plantuml'
 '''
 
 [[plugins]]
 repo = 'ctrlpvim/ctrlp.vim'
 hook_add = '''
-    let g:ctrlp_cmd = 'CtrlPMRU'
-    let g:ctrlp_use_migemo = 1
+let g:ctrlp_cmd = 'CtrlPMRU'
 '''
 
 [[plugins]]
@@ -204,20 +210,19 @@ repo = 'tyru/open-browser.vim'
 [[plugins]]
 repo = 'kannokanno/previm'
 hook_add = '''
-    augroup PrevimSettings
-        autocmd!
-        "autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
-        autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*,pml} set filetype=markdown
-    augroup END
+augroup PrevimSettings
+    autocmd!
+    autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*,pml} set filetype=markdown
+augroup END
 '''
 
 [[plugins]]
 repo = 'scrooloose/nerdtree'
 hook_add = '''
-    let g:NERDTreeDirArrows = 1
-    autocmd StdinReadPre * let s:std_in=1
-    autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-    map <C-n> :NERDTreeToggle<CR>
+let g:NERDTreeDirArrows = 1
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+map <C-n> :NERDTreeToggle<CR>
 '''
 
 [[plugins]]
@@ -239,92 +244,71 @@ nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
 [[plugins]]
 repo = 'glidenote/memolist.vim'
 hook_add = '''
-    " let g:memolist_path = '~/git/memolist/'
-    let g:memolist_path = '$HOME/repo/memolist/'
-    nmap <Leader>mn :MemoNew<CR>
-    nmap <Leader>ml :MemoList<CR>
-    nmap <Leader>mg :MemoGrep<CR>
-    nmap <Leader>mf :CtrlP g:memolist_path<CR>
+let g:memolist_path = '$HOME/repo/memolist/'
+nmap <Leader>mn :MemoNew<CR>
+nmap <Leader>ml :MemoList<CR>
+nmap <Leader>mg :MemoGrep<CR>
+nmap <Leader>mf :CtrlP g:memolist_path<CR>
 '''
 
 # ----- visual ----- #
 [[plugins]]
 repo = 'ryanoasis/vim-devicons'
 hook_add = '''
-    let g:WebDevIconsUnicodeDecorateFolderNodes = 1
-    let g:webdevicons_conceal_nerdtree_brackets = 1
-    let g:WebDevIconsNerdTreeAfterGlyphPadding = ' '
-    let g:DevIconsEnableFoldersOpenClose = 1
-    " let g:DevIconsDefaultFolderDefaultSymbol = ''
-    " let g:DevIconsDefaultFolderOpenSymbol = ''
-    " let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['html'] = ''
-    " let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['css'] = ''
-    " let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['md'] = ''
-    " let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['txt'] = ''
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+let g:webdevicons_conceal_nerdtree_brackets = 1
+let g:WebDevIconsNerdTreeAfterGlyphPadding = ' '
+let g:DevIconsEnableFoldersOpenClose = 1
 '''
 
 [[plugins]]
 repo = 'itchyny/lightline.vim'
 hook_add = '''
-    set laststatus=2
-    function! FilePath()
-        if winwidth(0) > 90
-            return expand("%:s")
-        else
-            return expand("%:t")
-        endif
-    endfunction
-    " set guifont=Ricty\ Regular\ Powerline:h18
-    " FIXME このフォントを使っていると隙間ができる
-    " set guifont=RictyDiminished\ Nerd\ Font\ Regular:h18
-    let g:lightline = {
-        \   'mode_map': {
-        \      'c': 'COMMAND',
-        \      'i': 'INSERT',
-        \      'n': 'NORMAL',
-        \      's': 'SELECT',
-        \      't': 'TERMINAL',
-        \      'v': 'VISUAL',
-        \      'R': 'REPLACE',
-        \      'S': 'S-LINE',
-        \      'V': 'V-LINE',
-        \      "\<C-s>": 'S-BLOCK',
-        \      "\<C-v>": 'V-BLOCK',
-        \   },
-        \   'colorscheme': 'powerline',
-        \   'component_function': {
-        " \      'ale': 'ALEStatus',
-        \      'filepath': 'FilePath',
-        \      'gitbranch': 'fugitive#head',
-        \      'anzu': 'anzu#search_status'
-        \   },
-        \   'component_type': {
-        \      'tabs': 'tabsel',
-        \      'close': 'raw' 
-        \   },
-        " 文字幅がNeoVimとVimで異なるようで、この設定を行うとレイアウトがNeoVimで崩れる
-        "\   'separator': {
-        "\      'left': "\ue0b0",
-        "\      'right': "\ue0b2"
-        "\   },
-        "\   'subseparator': {
-        "\      'left': "\ue0b1",
-        "\      'right': "\ue0b3"
-        "\   },
-        \   'tabline': {
-        \      'left': [['tabs']],
-        \      'right': [['close']]
-        \   },
-        \   'active': {
-        \      'left': [['mode', 'paste'], ['readonly', 'filepath', 'modified', 'gitbranch']],
-        " \      'right': [['percent', 'lineinfo'], ['ale']],
-        \      'right': [['percent', 'lineinfo'], ['linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok']],
-        \   },
-        \   'inactive': {
-        \      'left': [['filepath', 'modified', 'gitbranch']],
-        \      'right': [['percent', 'lineinfo']],
-        \   },
-        \ }
+set laststatus=2
+function! FilePath()
+    if winwidth(0) > 90
+        return expand("%:s")
+    else
+        return expand("%:t")
+    endif
+endfunction
+let g:lightline = {
+    \   'mode_map': {
+    \      'c': 'COMMAND',
+    \      'i': 'INSERT',
+    \      'n': 'NORMAL',
+    \      's': 'SELECT',
+    \      't': 'TERMINAL',
+    \      'v': 'VISUAL',
+    \      'R': 'REPLACE',
+    \      'S': 'S-LINE',
+    \      'V': 'V-LINE',
+    \      "\<C-s>": 'S-BLOCK',
+    \      "\<C-v>": 'V-BLOCK',
+    \   },
+    \   'colorscheme': 'powerline',
+    \   'component_function': {
+    \      'filepath': 'FilePath',
+    \      'gitbranch': 'fugitive#head',
+    \      'anzu': 'anzu#search_status'
+    \   },
+    \   'component_type': {
+    \      'tabs': 'tabsel',
+    \      'close': 'raw' 
+    \   },
+    \   'tabline': {
+    \      'left': [['tabs']],
+    \      'right': [['close']]
+    \   },
+    \   'active': {
+    \      'left': [['mode', 'paste'], ['readonly', 'filepath', 'modified', 'gitbranch']],
+    \      'right': [['percent', 'lineinfo'], ['linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok']],
+    \   },
+    \   'inactive': {
+    \      'left': [['filepath', 'modified', 'gitbranch']],
+    \      'right': [['percent', 'lineinfo']],
+    \   },
+    \ }
 '''
 
 [[plugins]]
@@ -349,8 +333,8 @@ let g:lightline.component_type = {
 [[plugins]]
 repo = 'freeo/vim-kalisi'
 hook_add = '''
-    autocmd MyAutoCmd VimEnter * nested colorscheme kalisi
-    autocmd MyAutoCmd VimEnter * nested hi MatchParen ctermfg=green ctermbg=black
+autocmd MyAutoCmd VimEnter * nested colorscheme kalisi
+autocmd MyAutoCmd VimEnter * nested hi MatchParen ctermfg=green ctermbg=black
 '''
 
 [[plugins]]
