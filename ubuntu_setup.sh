@@ -36,8 +36,8 @@ git clone https://github.com/LAKuEN/dotfiles.git
 shopt -s expand_aliases
 
 # golang
-curl -L -O https://dl.google.com/go/go1.11.5.linux-amd64.tar.gz
-sudo tar -C /usr/local -xzf go1.11.5.linux-amd64.tar.gz
+curl -L -O https://dl.google.com/go/go1.12.1.linux-amd64.tar.gz
+tar -C $HOME -xzf go1.12.1.linux-amd64.tar.gz
 
 # 絵文字対応のフォント突っ込む
 curl -O https://github.com/miiton/Cica/releases/download/v4.1.1/Cica-v4.1.1.zip
