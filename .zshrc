@@ -14,7 +14,7 @@ export IMGENV=$HOME/pyenv/imgenv/bin/activate
 export MLENV=$HOME/pyenv/mlenv/bin/activate
 export WEBENV=$HOME/pyenv/webenv/bin/activate
 export GOPATH=$HOME/go
-export PATH=$PATH:/usr/local/go/bin:$GOPATH
+export PATH=$PATH:$GOPATH/bin
 
 bindkey '^[[1;5D' backward-word
 bindkey '^[[1;5C' forward-word
