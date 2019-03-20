@@ -6,9 +6,6 @@ let g:dein#enable_notification = 1
 
 # ----- tools ----- #
 [[plugins]]
-repo = 'mattn/vim-sl'
-
-[[plugins]]
 repo = 'prabirshrestha/async.vim'
 
 [[plugins]]
@@ -77,62 +74,10 @@ endfunction
 " let g:lsp_diagnostics_enabled = 0  " 警告やエラーの表示はALEに任せるのでOFFにする
 let g:lsp_async_completion = 1
 '''
-depends = ['async.vim', 'asyncomplete.vim', 'asyncomplete-lsp.vim', 'vim-lsc']
-
-# [[plugins]]
-# repo = 'Shougo/deoplete.nvim'
-# hook_add = '''
-# " TODO which python3した結果を環境変数に挿入するようにしたい
-# let g:python3_host_prog = "/usr/bin/python3" " for Ubuntu
-# " let g:python3_host_prog = "/usr/local/bin/python3" " for macOS(Homebrew)
-# let g:deoplete#enable_at_startup = 1
-# let g:deoplete#auto_complete_delay = 0
-# let g:deoplete#auto_complete_start_length = 1
-# let g:deoplete#enable_refresh_always = 0
-# " <C-h>, <BS>: close popup and delete backword char.
-# inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
-# inoremap <expr><BS>  deoplete#smart_close_popup()."\<C-h>"
-# " TABでの補完
-# inoremap <silent><expr> <TAB>
-# \ pumvisible() ? "\<C-n>" :
-# \ <SID>check_back_space() ? "\<TAB>" :
-# \ deoplete#mappings#manual_complete()
-# function! s:check_back_space() abort "{{{
-# let col = col('.') - 1
-# return !col || getline('.')[col - 1]  =~ '\s'
-# endfunction"}}}
-# 
-# " preview(ウィンドウ分割されて表示されるやつ)を無効化
-# set completeopt-=preview
-# set completeopt+=menuone
-# '''
-# depends = ['neosnippet.vim', 'neosnippet-snippets']
+depends = ['async.vim']
 
 [[plugins]]
 repo = 'Shougo/denite.nvim'
-
-# [[plugins]]
-# repo = 'Shougo/neosnippet.vim'
-# 
-# [[plugins]]
-# repo = 'Shougo/neosnippet-snippets'
-
-# [[plugins]]
-# repo = 'davidhalter/jedi-vim'
-# hook_add = '''
-# let g:jedi#show_call_signatures = "2"
-# let g:jedi#goto_command = "<leader>d"
-# let g:jedi#goto_assignments_command = "<leader>g"
-# let g:jedi#goto_definitions_command = ""
-# let g:jedi#documentation_command = "K"
-# let g:jedi#usages_command = "<leader>n"
-# let g:jedi#completions_command = "<C-Space>"
-# let g:jedi#rename_command = "<leader>r"
-# '''
-
-# [[plugins]]
-# repo = 'zchee/deoplete-jedi'
-# depends = ['deoplete.nvim', 'jedi-vim']
 
 [[plugins]]
 repo = 'Vimjas/vim-python-pep8-indent'
@@ -154,8 +99,8 @@ let g:go_highlight_structs = 1
 let g:go_highlight_types = 1
 let g:go_auto_sameids = 1
 
-  let g:go_def_mapping_enabled = 0
-  let g:go_doc_keywordprg_enabled = 0
+let g:go_def_mapping_enabled = 0
+let g:go_doc_keywordprg_enabled = 0
 '''
 
 [[plugins]]
@@ -166,7 +111,6 @@ repo = 'w0rp/ale'
 hook_add = '''
 let g:ale_linters = {
 \   'go': ['go vet', 'gofmt', 'goimports', 'golint'],
-" \   'javascript': ['eslint'],
 \   'python': ['flake8'],
 \}
 let g:ale_fixers = {
