@@ -34,3 +34,5 @@ RPROMPT=""%F{white}'${vcs_info_msg_0_}'
 
 # zsh起動時にtmux起動
 [[ -z "$TMUX" && ! -z "$PS1" ]] && exec tmux
+
+[[ -s "/home/lakuen/.gvm/scripts/gvm" ]] && source "/home/lakuen/.gvm/scripts/gvm"
