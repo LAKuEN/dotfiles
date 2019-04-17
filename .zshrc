@@ -32,6 +32,12 @@ zstyle ':vcs_info:*' actionformats '[%b|%a]'
 precmd () { vcs_info }
 RPROMPT=""%F{white}'${vcs_info_msg_0_}'
 
+export HISTFILE=${HOME}/.zsh_history
+export HISTSIZE=10000
+export SAVEHIST=1000000
+setopt hist_ignore_dups
+setopt EXTENDED_HISTORY
+
 # zsh起動時にtmux起動
 [[ -z "$TMUX" && ! -z "$PS1" ]] && exec tmux
 
