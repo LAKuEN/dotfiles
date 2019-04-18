@@ -101,3 +101,11 @@ nnoremap <silent> [B :bfirst<CR>
 nnoremap <silent> ]B :blast<CR>
 nnoremap <C-]> g<C-]>
 "--------------------
+
+"virtualblock, undo_persistenceの設定を入れる！！！
+set virtualedit=block
+if has('persistent_undo')
+    set undodir=./.vimundo,$HOME/.vimundo
+    set undofile
+    set undolevels=1000
+endif
