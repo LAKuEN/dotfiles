@@ -9,7 +9,7 @@ augroup END
 
 let mapleader = "\<Space>"
 autocmd InsertLeave * set nopaste
-" dein settings {{{
+" dein settings
 " dein自体の自動インストール
 let s:cache_home = empty($XDG_CACHE_HOME) ? expand('~/.cache') : $XDG_CACHE_HOME
 let s:dein_dir = s:cache_home . '/dein'
@@ -38,7 +38,7 @@ if has('vim_starting') && dein#check_install()
 endif
 
 " Visual----------
-set background=dark
+"set background=dark
 syntax enable
 set number
 set ruler
@@ -46,6 +46,10 @@ set textwidth=0
 set hlsearch
 set list
 set listchars=tab:¦_,eol:↲,extends:»,precedes:«,nbsp:%
+" FIXME 本来はここではなくdein.toml側に入れるべき
+" set background をこの後に実行するとリセットされてしまうので、それより後で実行すること
+hi NonText    ctermbg=None ctermfg=59 guibg=NONE guifg=None
+hi SpecialKey ctermbg=None ctermfg=59 guibg=NONE guifg=None
 set ambiwidth=double
 set showtabline=2
 
@@ -102,7 +106,6 @@ nnoremap <silent> ]B :blast<CR>
 nnoremap <C-]> g<C-]>
 "--------------------
 
-"virtualblock, undo_persistenceの設定を入れる！！！
 set virtualedit=block
 if has('persistent_undo')
     set undodir=./.vimundo,$HOME/.vimundo

@@ -227,7 +227,8 @@ let g:lightline = {
     \      "\<C-s>": 'S-BLOCK',
     \      "\<C-v>": 'V-BLOCK',
     \   },
-    \   'colorscheme': 'powerline',
+    "\   'colorscheme': 'powerline',
+    \   'colorscheme': 'PaperColor',
     \   'component_function': {
     \      'filepath': 'FilePath',
     \      'gitbranch': 'fugitive#head',
@@ -272,26 +273,14 @@ let g:lightline.component_type = {
 
 ## ----- colorscheme ----- ##
 [[plugins]]
-repo = 'freeo/vim-kalisi'
+repo = 'NLKNguyen/papercolor-theme'
+
+[[plugins]]
+repo = 'ayu-theme/ayu-vim'
 hook_add = '''
-autocmd MyAutoCmd VimEnter * nested colorscheme kalisi
-autocmd MyAutoCmd VimEnter * nested hi MatchParen ctermfg=green ctermbg=black
+set background=light
+set termguicolors
+let ayucolor="light"
+colorscheme ayu
+"autocmd MyAutoCmd VimEnter * nested hi MatchParen ctermfg=green ctermbg=black
 '''
-
-[[plugins]]
-repo = 'tomasr/molokai'
-
-[[plugins]]
-repo = 'altercation/vim-colors-solarized'
-
-[[plugins]]
-repo = 'kristijanhusak/vim-hybrid-material'
-
-[[plugins]]
-repo = 'archSeer/colibri.vim'
-
-[[plugins]]
-repo = 'fcpg/vim-fahrenheit'
-
-[[plugins]]
-repo = 'skielbasa/vim-material-monokai'
