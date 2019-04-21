@@ -69,16 +69,15 @@ source $HOME/.zpreztorc
 sudo ln -nfs $HOME/repo/dotfiles/.tmux.conf $HOME/.tmux.conf
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 tmux source ~/.tmux.conf
-# このスクリプトの実行後にtmuxのプラグインを入れるために、<C-j>Iをtmux上で押下
-
-git config --global core.editor nvim
-git config --global core.quotepath false
-
-sudo mkdir -p $XDG_CONFIG_HOME/nvim
+echo "tmuxのプラグインの導入のため、<C-j>Iをtmux上で押下すること"
 
 # Vim
-sudo ln -nfs $HOME/repo/dotfiles/vim/.vim $HOME/.vim
 sudo ln -nfs $HOME/repo/dotfiles/vim/.vimrc $HOME/.vimrc
 
 # NeoVim
+sudo mkdir -p $XDG_CONFIG_HOME/nvim
 sudo ln -nfs $HOME/repo/dotfiles/vim/.vimrc $XDG_CONFIG_HOME/nvim/init.vim
+sudo ln -nfs $HOME/repo/dotfiles/vim/dein.toml $XDG_CONFIG_HOME/nvim/dein.toml
+
+git config --global core.editor nvim
+git config --global core.quotepath false

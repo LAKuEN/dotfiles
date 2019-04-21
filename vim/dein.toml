@@ -25,9 +25,6 @@ autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 repo = 'prabirshrestha/asyncomplete-lsp.vim'
 
 [[plugins]]
-repo = 'natebosch/vim-lsc'
-
-[[plugins]]
 repo = 'prabirshrestha/vim-lsp'
 hook_add = '''
 augroup MyLsp
@@ -42,7 +39,6 @@ augroup MyLsp
         autocmd FileType go call s:configure_lsp()
     endif
 
-    " https://kashewnuts.github.io/2019/01/28/move_from_jedivim_to_vimlsp.html よりコピペ
     if executable('pyls')
         " pip install python-language-server
         au User lsp_setup call lsp#register_server({
@@ -75,9 +71,6 @@ endfunction
 let g:lsp_async_completion = 1
 '''
 depends = ['async.vim']
-
-[[plugins]]
-repo = 'Shougo/denite.nvim'
 
 [[plugins]]
 repo = 'Vimjas/vim-python-pep8-indent'
@@ -120,13 +113,14 @@ let g:ale_fix_on_save = 1
 let g:ale_sign_column_always = 1
 let g:ale_sign_error = "!!"
 let g:ale_sign_warning = ">>"
-highlight clear ALEErrorSign
-highlight clear ALEWarningSign
+"highlight clear ALEErrorSign
+"highlight clear ALEWarningSign
 '''
 
 [[plugins]]
 repo = 'mattn/sonictemplate-vim'
 hook_add = '''
+"FIXME 固定パスを参照するのはよろしくない
 let g:sonictemplate_vim_template_dir = '$HOME/repo/dotfiles/vim/template'
 '''
 
@@ -146,24 +140,83 @@ let g:ctrlp_cmd = 'CtrlPMRU'
 repo = 'simeji/winresizer'
 
 [[plugins]]
-repo = 'tyru/open-browser.vim'
-
-[[plugins]]
-repo = 'kannokanno/previm'
-hook_add = '''
-augroup PrevimSettings
-    autocmd!
-    autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*,pml} set filetype=markdown
-augroup END
-'''
-
-[[plugins]]
 repo = 'scrooloose/nerdtree'
 hook_add = '''
 let g:NERDTreeDirArrows = 1
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 map <C-n> :NERDTreeToggle<CR>
+'''
+
+[[plugins]]
+repo = 'Shougo/defx.nvim'
+if = '''has('nvim')'''
+hook_add = '''
+autocmd FileType defx call s:defx_my_settings()
+function! s:defx_my_settings() abort
+  " Define mappings
+  nnoremap <silent><buffer><expr> <CR>
+  \ defx#do_action('open')
+  nnoremap <silent><buffer><expr> c
+  \ defx#do_action('copy')
+  nnoremap <silent><buffer><expr> m
+  \ defx#do_action('move')
+  nnoremap <silent><buffer><expr> p
+  \ defx#do_action('paste')
+  nnoremap <silent><buffer><expr> l
+  \ defx#do_action('open')
+  nnoremap <silent><buffer><expr> E
+  \ defx#do_action('open', 'vsplit')
+  nnoremap <silent><buffer><expr> P
+  \ defx#do_action('open', 'pedit')
+  nnoremap <silent><buffer><expr> o
+  \ defx#do_action('open_or_close_tree')
+  nnoremap <silent><buffer><expr> K
+  \ defx#do_action('new_directory')
+  nnoremap <silent><buffer><expr> N
+  \ defx#do_action('new_file')
+  nnoremap <silent><buffer><expr> M
+  \ defx#do_action('new_multiple_files')
+  nnoremap <silent><buffer><expr> C
+  \ defx#do_action('toggle_columns',
+  \                'mark:indent:icon:filename:type:size:time')
+  nnoremap <silent><buffer><expr> S
+  \ defx#do_action('toggle_sort', 'time')
+  nnoremap <silent><buffer><expr> d
+  \ defx#do_action('remove')
+  nnoremap <silent><buffer><expr> r
+  \ defx#do_action('rename')
+  nnoremap <silent><buffer><expr> !
+  \ defx#do_action('execute_command')
+  nnoremap <silent><buffer><expr> x
+  \ defx#do_action('execute_system')
+  nnoremap <silent><buffer><expr> yy
+  \ defx#do_action('yank_path')
+  nnoremap <silent><buffer><expr> .
+  \ defx#do_action('toggle_ignored_files')
+  nnoremap <silent><buffer><expr> ;
+  \ defx#do_action('repeat')
+  nnoremap <silent><buffer><expr> h
+  \ defx#do_action('cd', ['..'])
+  nnoremap <silent><buffer><expr> ~
+  \ defx#do_action('cd')
+  nnoremap <silent><buffer><expr> q
+  \ defx#do_action('quit')
+  nnoremap <silent><buffer><expr> <Space>
+  \ defx#do_action('toggle_select') . 'j'
+  nnoremap <silent><buffer><expr> *
+  \ defx#do_action('toggle_select_all')
+  nnoremap <silent><buffer><expr> j
+  \ line('.') == line('$') ? 'gg' : 'j'
+  nnoremap <silent><buffer><expr> k
+  \ line('.') == 1 ? 'G' : 'k'
+  nnoremap <silent><buffer><expr> <C-l>
+  \ defx#do_action('redraw')
+  nnoremap <silent><buffer><expr> <C-g>
+  \ defx#do_action('print')
+  nnoremap <silent><buffer><expr> cd
+  \ defx#do_action('change_vim_cwd')
+endfunction
 '''
 
 [[plugins]]
@@ -271,16 +324,9 @@ let g:lightline.component_type = {
     \ }
 '''
 
-## ----- colorscheme ----- ##
+# ----- colorscheme ----- #
 [[plugins]]
 repo = 'NLKNguyen/papercolor-theme'
 
 [[plugins]]
 repo = 'ayu-theme/ayu-vim'
-hook_add = '''
-set background=light
-set termguicolors
-let ayucolor="light"
-colorscheme ayu
-"autocmd MyAutoCmd VimEnter * nested hi MatchParen ctermfg=green ctermbg=black
-'''
