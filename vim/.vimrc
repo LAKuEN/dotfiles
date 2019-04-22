@@ -39,7 +39,7 @@ endif
 augroup ResetHighlightSettings
     autocmd!
     autocmd ColorScheme * hi CursorLine cterm=underline gui=underline ctermfg=none ctermbg=none guifg=none guibg=none
-                      \ | hi MatchParen ctermfg=red ctermbg=gray guifg=orange guibg=gray
+                      \ | hi MatchParen ctermfg=green ctermbg=lightgray guifg=green guibg=lightgray
                       \ | hi NonText    ctermbg=none ctermfg=59 guibg=none guifg=none
                       \ | hi SpecialKey ctermbg=none ctermfg=59 guibg=none guifg=none
 augroup END
