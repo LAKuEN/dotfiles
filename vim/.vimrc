@@ -42,6 +42,8 @@ augroup ResetHighlightSettings
                       \ | hi MatchParen ctermfg=green ctermbg=lightgray guifg=green guibg=lightgray
                       \ | hi NonText    ctermbg=none ctermfg=59 guibg=none guifg=none
                       \ | hi SpecialKey ctermbg=none ctermfg=59 guibg=none guifg=none
+                      \ | hi SpellBad guifg=gray
+                      \ | hi Error guibg=orange
 augroup END
 colorscheme ayu
 syntax enable

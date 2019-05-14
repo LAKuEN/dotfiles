@@ -30,10 +30,10 @@ hook_add = '''
 augroup MyLsp
     autocmd!
     " goplsだと、大文字始まりで文字列を2文字入力したときに補完ダイアログが閉じてしまう&大文字1文字を入力した後に補完候補を選択すると、入力した文字が消えてしまう問題が起こる
-    if executable('bingo')
+    if executable('gopls')
         au User lsp_setup call lsp#register_server({
-            \ 'name': 'bingo',
-            \ 'cmd': {server_info->['bingo', '-mode', 'stdio']},
+            \ 'name': 'gopls',
+            \ 'cmd': {server_info->['gopls', '-mode', 'stdio']},
             \ 'whitelist': ['go'],
             \ })
         autocmd FileType go call s:configure_lsp()
@@ -67,7 +67,7 @@ function! s:configure_lsp() abort
     nnoremap <buffer> <F1> :<C-u>LspImplementation<CR>
     nnoremap <buffer> <F2> :<C-u>LspRename<CR>
 endfunction
-" let g:lsp_diagnostics_enabled = 0  " 警告やエラーの表示はALEに任せるのでOFFにする
+let g:lsp_diagnostics_enabled = 0
 let g:lsp_async_completion = 1
 '''
 depends = ['async.vim']
@@ -78,8 +78,9 @@ repo = 'Vimjas/vim-python-pep8-indent'
 [[plugins]]
 repo = 'fatih/vim-go'
 hook_add = '''
-let g:go_bin_path = "$GOPATH/bin"
-let g:go_fmt_command = "goimports"
+let g:go_bin_path = $GOPATH . '/bin'
+let g:go_def_mode='gopls'
+let g:go_fmt_command = 'goimports'
 let g:go_fmt_fail_silently = 1
 
 let g:go_highlight_build_constraints = 1
@@ -109,7 +110,8 @@ let g:ale_linters = {
 let g:ale_fixers = {
 \   'javascript': ['prettier'],
 \ }
-let g:ale_fix_on_save = 1
+let g:ale_echo_msg_format = '[%linter%] %s'
+let g:ale_lint_on_text_changed = 1
 let g:ale_sign_column_always = 1
 let g:ale_sign_error = "!!"
 let g:ale_sign_warning = ">>"

@@ -13,12 +13,13 @@ curl -L -O https://dl.google.com/linux/direct/google-chrome-stable_current_amd64
 sudo dpkg -i google-chrome-stable_current_amd64.deb
 rm google-chrome-stable_current_amd64.deb
 
-sudo sh -c "curl https://build.opensuse.org/projects/home:manuelschneid3r/public_key | sudo apt-key add -"
-sudo apt update
-sudo apt install -y albert
+sudo sh -c "echo 'deb http://download.opensuse.org/repositories/home:/manuelschneid3r/xUbuntu_18.04/ /' > /etc/apt/sources.list.d/home:manuelschneid3r.list"
+sudo apt-get update
+sudo apt-get install albert
 
 sudo apt update
-sudo apt install -y asunder chrome-gnome-shell clamav-base clamav-freshclam davfs2 dkms exfat-fuse exfat-utils fcitx-mozc ffmpeg fonts-ricty-diminished gimp git gnome-shell gnome-sushi gnome-tweak-tool gnome-tweaks gparted imagemagick jq neovim nodejs octave python3 python3-pip python3-venv solaar tig timeshift tlp tlp-rdw tmux translate-shell tree vim virtualbox zsh
+sudo apt install -y asunder chrome-gnome-shell clamav-base clamav-freshclam dkms exfat-fuse exfat-utils fcitx-mozc ffmpeg gimp git gnome-shell gnome-sushi gnome-tweak-tool gnome-tweaks gparted imagemagick jq neovim nodejs octave python3 python3-pip python3-venv solaar tig tlp tlp-rdw tmux translate-shell tree vim virtualbox zsh
+sudo apt install -y virtualbox-ext-pack
 # ネットワーク接続系
 # VPN
 sudo apt install network-manager-openconnect-gnome
@@ -38,14 +39,14 @@ curl -L -O https://dl.google.com/go/go1.12.1.linux-amd64.tar.gz
 sudo tar -C /usr/local -xzf go1.12.1.linux-amd64.tar.gz
 
 # 絵文字対応のフォント突っ込む
-curl -O https://github.com/miiton/Cica/releases/download/v4.1.1/Cica-v4.1.1.zip
-unzip Cica-v4.1.1.zip
+curl -O https://github.com/miiton/Cica/releases/download/v4.1.2/Cica_v4.1.2.zip
+unzip Cica-v4.1.2.zip
 sudo cp Cica-*.ttf /usr/local/share/fonts
 fc-list | grep Cica
 ## Gnome-terminalにも反映
 UUID=$(gsettings get org.gnome.Terminal.ProfilesList default | tr -d \')
 gsettings set org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:${UUID}/ font "Cica Bold 11"
-rm Cica-v4.1.1.zip Cica-*.ttf
+rm Cica-v4.1.2.zip Cica-*.ttf
 
 # set keybinding in mozc with gui
 # * Alt: IME ON/OFF

@@ -13,7 +13,7 @@ fi
 if [ -z $ZSH_ENV_LOADED ]; then
   # CapsをCtrlに入替え
   setxkbmap -option ctrl:nocaps
-  export GOPATH=$HOME/repo/go
+  export GOPATH=$HOME/go
   export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
   export ZSH_ENV_LOADED="1"
 else
@@ -26,3 +26,9 @@ export PATH="$PYENV_ROOT/bin:$PATH"
 export IMGENV="$HOME/pyenv/imgenv/bin/activate"
 export MLENV="$HOME/pyenv/mlenv/bin/activate"
 alias filer='nautilus'
+
+# Go
+export GO111MODULE=on
+
+# Python製のライブラリにパスを通す
+export PATH=$PATH:$HOME/.local/bin
