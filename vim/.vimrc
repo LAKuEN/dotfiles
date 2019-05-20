@@ -2,6 +2,8 @@ if !&compatible
   set nocompatible
 endif
 
+let mapleader = "\<Space>"
+
 "dein
 let s:cache_home = empty($XDG_CACHE_HOME) ? expand('~/.cache') : $XDG_CACHE_HOME
 let s:dein_dir = s:cache_home . '/dein'
@@ -23,7 +25,6 @@ if has('vim_starting') && dein#check_install()
 endif
 
 let ayucolor="light"
-let mapleader = "\<Space>"
 
 nnoremap <silent> <ESC><ESC> :nohlsearch<CR>
 nnoremap <silent> [b :bprevious<CR>

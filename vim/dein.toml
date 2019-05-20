@@ -244,7 +244,6 @@ let g:memolist_path = '$HOME/repo/memolist/'
 nmap <Leader>mn :MemoNew<CR>
 nmap <Leader>ml :MemoList<CR>
 nmap <Leader>mg :MemoGrep<CR>
-nmap <Leader>mf :CtrlP g:memolist_path<CR>
 '''
 
 # ----- visual ----- #
