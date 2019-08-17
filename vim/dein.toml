@@ -39,11 +39,13 @@ augroup MyLsp
         autocmd FileType go call s:configure_lsp()
     endif
 
+    " 共通の環境に導入したpylsを使用する
+    let s:pyls_path = $HOME . '/.local/bin/pyls'
     if executable('pyls')
         " pip install python-language-server
         au User lsp_setup call lsp#register_server({
             \ 'name': 'pyls',
-            \ 'cmd': {server_info->['pyls']},
+            \ 'cmd': {server_info->[expand(s:pyls_path)]},
             \ 'whitelist': ['python'],
             \ 'workspace_config': {'pyls': {'plugins': {
             \   'pycodestyle': {'enabled': v:false},
