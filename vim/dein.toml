@@ -330,6 +330,69 @@ let g:lightline.component_type = {
 # ----- colorscheme ----- #
 [[plugins]]
 repo = 'NLKNguyen/papercolor-theme'
+# hook_add = '''
+# colorscheme PaperColor
+# set background=dark
+# '''
 
 [[plugins]]
 repo = 'ayu-theme/ayu-vim'
+
+[[plugins]]
+repo = 'hzchirs/vim-material'
+# hook_add = '''
+# set background=dark
+# colorscheme vim-material
+# '''
+
+[[plugins]]
+repo = 'skielbasa/vim-material-monokai'
+# hook_add = '''
+# set background=dark
+# set termguicolors
+# colorscheme material-monokai
+# '''
+
+[[plugins]]
+repo = 'kaicataldo/material.vim'
+# hook_add = '''
+# colorscheme material
+# '''
+
+[[plugins]]
+repo = 'phanviet/vim-monokai-pro'
+# hook_add = '''
+# set background=dark
+# set termguicolors
+# colorscheme monokai_pro
+# '''
+
+[[plugins]]
+repo = 'Siphalor/vim-atomified'
+# hook_add = '''
+# set background=dark
+# set termguicolors
+# colorscheme vim-atomified
+# '''
+
+
+[[plugins]]
+repo = 'patstockwell/vim-monokai-tasty'
+# hook_add = '''
+# set background=dark
+# colorscheme vim-monokai-tasty
+# '''
+
+[[plugins]]
+repo = 'fatih/molokai'
+# hook_add = '''
+# set background=dark
+# colorscheme molokai
+# '''
+
+[[plugins]]
+repo = 'gilgigilgil/anderson.vim'
+# hook_add = '''
+# set background=dark
+# colorscheme anderson
+# '''
