@@ -19,9 +19,9 @@ export PATH="$PATH:/usr/local/go/bin:$GOPATH/bin"
 bindkey '^[[1;5D' backward-word
 bindkey '^[[1;5C' forward-word
 
-# Prompt周りの設定
-PROMPT='%K{blue}%F{white}   %K{white }%F{blue} %n %K{blue}%F{white} %1~ %k%F{blue}
-%k%f '
+PROMPT='%K{white }%F{blue} %n %K{blue}%F{white} %1~ %k%F{blue}
+%k%f%% '
+export PS2='> '
 autoload -Uz vcs_info
 setopt prompt_subst
 zstyle ':vcs_info:git:*' check-for-changes true
@@ -38,7 +38,9 @@ export SAVEHIST=1000000
 setopt hist_ignore_dups
 setopt EXTENDED_HISTORY
 
-# zsh起動時にtmux起動
-[[ -z "$TMUX" && ! -z "$PS1" ]] && exec tmux
-
 [[ -s "/home/lakuen/.gvm/scripts/gvm" ]] && source "/home/lakuen/.gvm/scripts/gvm"
+
+setopt nonomatch
+
+# For Java
+export JAVA_HOME="/usr/lib/jvm/java-11-openjdk-amd64/"

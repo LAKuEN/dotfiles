@@ -26,3 +26,9 @@ export GO111MODULE=on
 
 # Python製のライブラリにパスを通す
 export PATH=$PATH:$HOME/.local/bin
+
+# Java
+export JAVA_HOME=/usr/lib/jvm/default-java
+export M2_HOME=/opt/maven
+export MAVEN_HOME=/opt/maven
+export PATH=${M2_HOME}/bin:$PATH

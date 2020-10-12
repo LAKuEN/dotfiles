@@ -24,8 +24,6 @@ if has('vim_starting') && dein#check_install()
   call dein#install()
 endif
 
-"let ayucolor="light"
-
 nnoremap <silent> <ESC><ESC> :nohlsearch<CR>
 nnoremap <silent> [b :bprevious<CR>
 nnoremap <silent> ]b :bnext<CR>
@@ -46,12 +44,10 @@ augroup ResetHighlightSettings
                       \ | hi SpellBad guifg=gray
                       \ | hi Error guibg=orange
 augroup END
-"colorscheme ayu
 syntax enable
 
 set ambiwidth=double
 set autoindent
-"set background=light
 set backspace=eol,indent,start
 set clipboard+=unnamed
 set clipboard+=unnamedplus
@@ -65,6 +61,7 @@ set number
 set ruler
 set shiftwidth=4
 set showmatch
+set smartindent
 set tabstop=4
 set termguicolors
 set textwidth=0
@@ -78,5 +75,9 @@ set wrapscan
 set wildmenu
 set wildmode=list:full
 " set showtabline=2
-colorscheme PaperColor
-set background=dark
+
+augroup fileTypeIndent
+    autocmd!
+    autocmd BufNewFile,BufRead *.yml setlocal tabstop=2 softtabstop=2 shiftwidth=2
+    autocmd BufNewFile,BufRead *.js setlocal tabstop=2 softtabstop=2 shiftwidth=2
+augroup END

@@ -27,52 +27,36 @@ repo = 'prabirshrestha/asyncomplete-lsp.vim'
 [[plugins]]
 repo = 'prabirshrestha/vim-lsp'
 hook_add = '''
-augroup MyLsp
-    autocmd!
-    " goplsだと、大文字始まりで文字列を2文字入力したときに補完ダイアログが閉じてしまう&大文字1文字を入力した後に補完候補を選択すると、入力した文字が消えてしまう問題が起こる
-    if executable('gopls')
-        au User lsp_setup call lsp#register_server({
-            \ 'name': 'gopls',
-            \ 'cmd': {server_info->['gopls', '-mode', 'stdio']},
-            \ 'whitelist': ['go'],
-            \ })
-        autocmd FileType go call s:configure_lsp()
-    endif
-
-    " 共通の環境に導入したpylsを使用する
-    let s:pyls_path = $HOME . '/.local/bin/pyls'
-    if executable('pyls')
-        " pip install python-language-server
-        au User lsp_setup call lsp#register_server({
-            \ 'name': 'pyls',
-            \ 'cmd': {server_info->[expand(s:pyls_path)]},
-            \ 'whitelist': ['python'],
-            \ 'workspace_config': {'pyls': {'plugins': {
-            \   'pycodestyle': {'enabled': v:false},
-            \   'jedi_definition': {'follow_imports': v:true, 'follow_builtin_imports': v:true},}}}
-            \})
-        autocmd FileType python call s:configure_lsp()
-    endif
-augroup END
-
-function! s:configure_lsp() abort
-    setlocal omnifunc=lsp#complete   " オムニ補完を有効化
-    " LSP用にマッピング
-    nnoremap <buffer> <C-]> :<C-u>LspDefinition<CR>
-    nnoremap <buffer> gd :<C-u>LspDefinition<CR>
-    nnoremap <buffer> gD :<C-u>LspReferences<CR>
-    nnoremap <buffer> gs :<C-u>LspDocumentSymbol<CR>
-    nnoremap <buffer> gS :<C-u>LspWorkspaceSymbol<CR>
-    nnoremap <buffer> gQ :<C-u>LspDocumentFormat<CR>
-    vnoremap <buffer> gQ :LspDocumentRangeFormat<CR>
-    nnoremap <buffer> K :<C-u>LspHover<CR>
-    nnoremap <buffer> <F1> :<C-u>LspImplementation<CR>
-    nnoremap <buffer> <F2> :<C-u>LspRename<CR>
+function! s:on_lsp_buffer_enabled() abort
+    setlocal omnifunc=lsp#complete
+    setlocal signcolumn=yes
+    if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+    nmap <buffer> gd <plug>(lsp-definition)
+    nmap <buffer> gr <plug>(lsp-references)
+    nmap <buffer> gi <plug>(lsp-implementation)
+    nmap <buffer> gt <plug>(lsp-type-definition)
+    nmap <buffer> <leader>rn <plug>(lsp-rename)
+    nmap <buffer> [g <Plug>(lsp-previous-diagnostic)
+    nmap <buffer> ]g <Plug>(lsp-next-diagnostic)
+    nmap <buffer> K <plug>(lsp-hover)
+    " refer to doc to add more commands
 endfunction
-let g:lsp_diagnostics_enabled = 0
-let g:lsp_async_completion = 1
+augroup lsp_install
+    au!
+    " call s:on_lsp_buffer_enabled only for languages that has the server registered.
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
+augroup lsp_auto_formatting
+    au!
+    autocmd BufWritePre *.py LspDocumentFormatSync
+augroup END
+"let g:lsp_diagnostics_enabled = 0
+"let g:lsp_async_completion = 1
 '''
 depends = ['async.vim']
+
+[[plugins]]
+repo = 'mattn/vim-lsp-settings'
 
 [[plugins]]
 repo = 'Vimjas/vim-python-pep8-indent'
@@ -81,7 +65,8 @@ repo = 'Vimjas/vim-python-pep8-indent'
 repo = 'fatih/vim-go'
 hook_add = '''
 let g:go_bin_path = $GOPATH . '/bin'
-let g:go_def_mode='gopls'
+let g:go_def_mode = 'gopls'
+let g:go_info_mode = 'gopls'
 let g:go_fmt_command = 'goimports'
 let g:go_fmt_fail_silently = 1
 
@@ -106,11 +91,13 @@ repo = 'mattn/emmet-vim'
 repo = 'w0rp/ale'
 hook_add = '''
 let g:ale_linters = {
-\   'go': ['go vet', 'gofmt', 'goimports', 'golint'],
+\   'go': ['gometalinter'],
 \   'python': ['flake8'],
 \}
 let g:ale_fixers = {
+\   '*': ['trim_whitespace'],
 \   'javascript': ['prettier'],
+\   'go': ['gofmt'],
 \ }
 let g:ale_echo_msg_format = '[%linter%] %s'
 let g:ale_lint_on_text_changed = 1
@@ -143,14 +130,14 @@ let g:ctrlp_cmd = 'CtrlPMRU'
 [[plugins]]
 repo = 'simeji/winresizer'
 
-[[plugins]]
-repo = 'scrooloose/nerdtree'
-hook_add = '''
-let g:NERDTreeDirArrows = 1
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-map <C-n> :NERDTreeToggle<CR>
-'''
+# [[plugins]]
+# repo = 'scrooloose/nerdtree'
+# hook_add = '''
+# let g:NERDTreeDirArrows = 1
+# autocmd StdinReadPre * let s:std_in=1
+# autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+# map <C-n> :NERDTreeToggle<CR>
+# '''
 
 [[plugins]]
 repo = 'Shougo/defx.nvim'
@@ -326,73 +313,3 @@ let g:lightline.component_type = {
     \     'linter_ok': 'left',
     \ }
 '''
-
-# ----- colorscheme ----- #
-[[plugins]]
-repo = 'NLKNguyen/papercolor-theme'
-# hook_add = '''
-# colorscheme PaperColor
-# set background=dark
-# '''
-
-[[plugins]]
-repo = 'ayu-theme/ayu-vim'
-
-[[plugins]]
-repo = 'hzchirs/vim-material'
-# hook_add = '''
-# set background=dark
-# colorscheme vim-material
-# '''
-
-[[plugins]]
-repo = 'skielbasa/vim-material-monokai'
-# hook_add = '''
-# set background=dark
-# set termguicolors
-# colorscheme material-monokai
-# '''
-
-[[plugins]]
-repo = 'kaicataldo/material.vim'
-# hook_add = '''
-# colorscheme material
-# '''
-
-[[plugins]]
-repo = 'phanviet/vim-monokai-pro'
-# hook_add = '''
-# set background=dark
-# set termguicolors
-# colorscheme monokai_pro
-# '''
-
-[[plugins]]
-repo = 'Siphalor/vim-atomified'
-# hook_add = '''
-# set background=dark
-# set termguicolors
-# colorscheme vim-atomified
-# '''
-
-
-[[plugins]]
-repo = 'patstockwell/vim-monokai-tasty'
-# hook_add = '''
-# set background=dark
-# colorscheme vim-monokai-tasty
-# '''
-
-[[plugins]]
-repo = 'fatih/molokai'
-# hook_add = '''
-# set background=dark
-# colorscheme molokai
-# '''
-
-[[plugins]]
-repo = 'gilgigilgil/anderson.vim'
-# hook_add = '''
-# set background=dark
-# colorscheme anderson
-# '''
