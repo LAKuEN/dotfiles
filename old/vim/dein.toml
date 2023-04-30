@@ -1,0 +1,314 @@
+[[plugins]]
+repo = 'Shougo/dein.vim'
+hook_add = '''
+let g:dein#enable_notification = 1
+'''
+
+# ----- tools ----- #
+[[plugins]]
+repo = 'prabirshrestha/async.vim'
+
+[[plugins]]
+repo = 'prabirshrestha/asyncomplete.vim'
+hook_add = '''
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+"inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
+let g:asyncomplete_remove_duplicates = 1
+let g:asyncomplete_smart_completion = 1
+let g:asyncomplete_auto_popup = 1
+
+autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+'''
+
+[[plugins]]
+repo = 'prabirshrestha/asyncomplete-lsp.vim'
+
+[[plugins]]
+repo = 'prabirshrestha/vim-lsp'
+hook_add = '''
+function! s:on_lsp_buffer_enabled() abort
+    setlocal omnifunc=lsp#complete
+    setlocal signcolumn=yes
+    if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+    nmap <buffer> gd <plug>(lsp-definition)
+    nmap <buffer> gr <plug>(lsp-references)
+    nmap <buffer> gi <plug>(lsp-implementation)
+    nmap <buffer> <leader>rn <plug>(lsp-rename)
+    nmap <buffer> [g <Plug>(lsp-previous-diagnostic)
+    nmap <buffer> ]g <Plug>(lsp-next-diagnostic)
+    nmap <buffer> K <plug>(lsp-hover)
+    " refer to doc to add more commands
+endfunction
+augroup lsp_install
+    au!
+    " call s:on_lsp_buffer_enabled only for languages that has the server registered.
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
+augroup lsp_auto_formatting
+    au!
+    autocmd BufWritePre *.py LspDocumentFormatSync
+augroup END
+"let g:lsp_diagnostics_enabled = 0
+"let g:lsp_async_completion = 1
+'''
+depends = ['async.vim']
+
+[[plugins]]
+repo = 'mattn/vim-lsp-settings'
+
+[[plugins]]
+repo = 'Vimjas/vim-python-pep8-indent'
+
+[[plugins]]
+repo = 'fatih/vim-go'
+hook_add = '''
+let g:go_bin_path = $GOPATH . '/bin'
+let g:go_def_mode = 'gopls'
+let g:go_info_mode = 'gopls'
+let g:go_fmt_command = 'goimports'
+let g:go_fmt_fail_silently = 1
+
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_types = 1
+let g:go_auto_sameids = 1
+
+let g:go_def_mapping_enabled = 0
+let g:go_doc_keywordprg_enabled = 0
+'''
+
+[[plugins]]
+repo = 'mattn/emmet-vim'
+
+[[plugins]]
+repo = 'w0rp/ale'
+hook_add = '''
+let g:ale_linters = {
+\   'go': ['gometalinter'],
+\   'python': ['flake8'],
+\}
+let g:ale_fixers = {
+\   '*': ['trim_whitespace'],
+\   'javascript': ['prettier'],
+\   'go': ['gofmt'],
+\ }
+let g:ale_echo_msg_format = '[%linter%] %s'
+let g:ale_lint_on_text_changed = 1
+let g:ale_sign_column_always = 1
+let g:ale_sign_error = "!!"
+let g:ale_sign_warning = ">>"
+"highlight clear ALEErrorSign
+"highlight clear ALEWarningSign
+'''
+
+[[plugins]]
+repo = 'mattn/sonictemplate-vim'
+hook_add = '''
+"FIXME 固定パスを参照するのはよろしくない
+let g:sonictemplate_vim_template_dir = '$HOME/repo/dotfiles/vim/template'
+'''
+
+[[plugins]]
+repo = 'aklt/plantuml-syntax'
+hook_add = '''
+let g:plantuml_executable_script = '$HOME/.plantuml'
+'''
+
+[[plugins]]
+repo = 'ctrlpvim/ctrlp.vim'
+hook_add = '''
+let g:ctrlp_cmd = 'CtrlPMRU'
+'''
+
+[[plugins]]
+repo = 'simeji/winresizer'
+
+# [[plugins]]
+# repo = 'scrooloose/nerdtree'
+# hook_add = '''
+# let g:NERDTreeDirArrows = 1
+# autocmd StdinReadPre * let s:std_in=1
+# autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+# map <C-n> :NERDTreeToggle<CR>
+# '''
+
+[[plugins]]
+repo = 'Shougo/defx.nvim'
+if = '''has('nvim')'''
+hook_add = '''
+autocmd FileType defx call s:defx_my_settings()
+function! s:defx_my_settings() abort
+  " Define mappings
+  nnoremap <silent><buffer><expr> <CR>
+  \ defx#do_action('open')
+  nnoremap <silent><buffer><expr> c
+  \ defx#do_action('copy')
+  nnoremap <silent><buffer><expr> m
+  \ defx#do_action('move')
+  nnoremap <silent><buffer><expr> p
+  \ defx#do_action('paste')
+  nnoremap <silent><buffer><expr> l
+  \ defx#do_action('open')
+  nnoremap <silent><buffer><expr> E
+  \ defx#do_action('open', 'vsplit')
+  nnoremap <silent><buffer><expr> P
+  \ defx#do_action('open', 'pedit')
+  nnoremap <silent><buffer><expr> o
+  \ defx#do_action('open_or_close_tree')
+  nnoremap <silent><buffer><expr> K
+  \ defx#do_action('new_directory')
+  nnoremap <silent><buffer><expr> N
+  \ defx#do_action('new_file')
+  nnoremap <silent><buffer><expr> M
+  \ defx#do_action('new_multiple_files')
+  nnoremap <silent><buffer><expr> C
+  \ defx#do_action('toggle_columns',
+  \                'mark:indent:icon:filename:type:size:time')
+  nnoremap <silent><buffer><expr> S
+  \ defx#do_action('toggle_sort', 'time')
+  nnoremap <silent><buffer><expr> d
+  \ defx#do_action('remove')
+  nnoremap <silent><buffer><expr> r
+  \ defx#do_action('rename')
+  nnoremap <silent><buffer><expr> !
+  \ defx#do_action('execute_command')
+  nnoremap <silent><buffer><expr> x
+  \ defx#do_action('execute_system')
+  nnoremap <silent><buffer><expr> yy
+  \ defx#do_action('yank_path')
+  nnoremap <silent><buffer><expr> .
+  \ defx#do_action('toggle_ignored_files')
+  nnoremap <silent><buffer><expr> ;
+  \ defx#do_action('repeat')
+  nnoremap <silent><buffer><expr> h
+  \ defx#do_action('cd', ['..'])
+  nnoremap <silent><buffer><expr> ~
+  \ defx#do_action('cd')
+  nnoremap <silent><buffer><expr> q
+  \ defx#do_action('quit')
+  nnoremap <silent><buffer><expr> <Space>
+  \ defx#do_action('toggle_select') . 'j'
+  nnoremap <silent><buffer><expr> *
+  \ defx#do_action('toggle_select_all')
+  nnoremap <silent><buffer><expr> j
+  \ line('.') == line('$') ? 'gg' : 'j'
+  nnoremap <silent><buffer><expr> k
+  \ line('.') == 1 ? 'G' : 'k'
+  nnoremap <silent><buffer><expr> <C-l>
+  \ defx#do_action('redraw')
+  nnoremap <silent><buffer><expr> <C-g>
+  \ defx#do_action('print')
+  nnoremap <silent><buffer><expr> cd
+  \ defx#do_action('change_vim_cwd')
+endfunction
+'''
+
+[[plugins]]
+repo = 'qpkorr/vim-bufkill'
+
+[[plugins]]
+repo = 'tpope/vim-fugitive'
+
+[[plugins]]
+repo = 'osyo-manga/vim-anzu'
+hook_add = '''
+nmap n <Plug>(anzu-n-with-echo)
+nmap N <Plug>(anzu-N-with-echo)
+nmap * <Plug>(anzu-star-with-echo)
+nmap # <Plug>(anzu-sharp-with-echo)
+nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
+'''
+
+[[plugins]]
+repo = 'glidenote/memolist.vim'
+hook_add = '''
+let g:memolist_path = '$HOME/repo/memolist/'
+nmap <Leader>mn :MemoNew<CR>
+nmap <Leader>ml :MemoList<CR>
+nmap <Leader>mg :MemoGrep<CR>
+'''
+
+# ----- visual ----- #
+[[plugins]]
+repo = 'ryanoasis/vim-devicons'
+hook_add = '''
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+let g:webdevicons_conceal_nerdtree_brackets = 1
+let g:WebDevIconsNerdTreeAfterGlyphPadding = ' '
+let g:DevIconsEnableFoldersOpenClose = 1
+'''
+
+[[plugins]]
+repo = 'itchyny/lightline.vim'
+hook_add = '''
+set laststatus=2
+function! FilePath()
+    if winwidth(0) > 90
+        return expand("%:s")
+    else
+        return expand("%:t")
+    endif
+endfunction
+let g:lightline = {
+    \   'mode_map': {
+    \      'c': 'COMMAND',
+    \      'i': 'INSERT',
+    \      'n': 'NORMAL',
+    \      's': 'SELECT',
+    \      't': 'TERMINAL',
+    \      'v': 'VISUAL',
+    \      'R': 'REPLACE',
+    \      'S': 'S-LINE',
+    \      'V': 'V-LINE',
+    \      "\<C-s>": 'S-BLOCK',
+    \      "\<C-v>": 'V-BLOCK',
+    \   },
+    "\   'colorscheme': 'powerline',
+    \   'colorscheme': 'PaperColor',
+    \   'component_function': {
+    \      'filepath': 'FilePath',
+    \      'gitbranch': 'fugitive#head',
+    \      'anzu': 'anzu#search_status'
+    \   },
+    \   'component_type': {
+    \      'tabs': 'tabsel',
+    \      'close': 'raw' 
+    \   },
+    \   'tabline': {
+    \      'left': [['tabs']],
+    \      'right': [['close']]
+    \   },
+    \   'active': {
+    \      'left': [['mode', 'paste'], ['readonly', 'filepath', 'modified', 'gitbranch']],
+    \      'right': [['percent', 'lineinfo'], ['linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok']],
+    \   },
+    \   'inactive': {
+    \      'left': [['filepath', 'modified', 'gitbranch']],
+    \      'right': [['percent', 'lineinfo']],
+    \   },
+    \ }
+'''
+
+[[plugins]]
+repo = 'maximbaz/lightline-ale'
+depends = ['lightline.vim', 'ale']
+hook_add = '''
+let g:lightline.component_expand = {
+    \  'linter_checking': 'lightline#ale#checking',
+    \  'linter_warnings': 'lightline#ale#warnings',
+    \  'linter_errors': 'lightline#ale#errors',
+    \  'linter_ok': 'lightline#ale#ok',
+    \ }
+let g:lightline.component_type = {
+    \     'linter_checking': 'left',
+    \     'linter_warnings': 'warning',
+    \     'linter_errors': 'error',
+    \     'linter_ok': 'left',
+    \ }
+'''
